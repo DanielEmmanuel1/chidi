@@ -101,30 +101,14 @@ export default function Community() {
     const [activeTab, setActiveTab] = useState<CommunityType>('team1');
     const activeCommunity = communities[activeTab];
 
+    // Animations removed to ensure visibility
     useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.from(".community-content", {
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 75%",
-                },
-                y: 60,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.15,
-                ease: "power3.out"
-            });
-        }, sectionRef);
-
-        return () => ctx.revert();
+        // Optional: Add simple fade-in later if needed
     }, []);
 
-    // Animate content when tab changes
+    // Tab animation removed for stability
     useEffect(() => {
-        gsap.fromTo(".tab-content",
-            { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
-        );
+        // Optional: Add simple transition later
     }, [activeTab]);
 
     return (

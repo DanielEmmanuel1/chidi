@@ -116,42 +116,52 @@ export default function Header() {
                             {/* Left side - Image gallery - HIDDEN ON MOBILE */}
                             <div className="hidden lg:block relative bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 overflow-hidden">
                                 <div className="absolute inset-0 flex items-center justify-center p-12">
-                                    {/* 2x larger container */}
-                                    <div className="relative w-full max-w-2xl aspect-[3/4]">
-                                        {/* Background stacked cards - no transitions, varied rotations */}
+                                    {/* Larger container (reduced from 2xl to xl) */}
+                                    <div className="relative w-full max-w-xl aspect-[3/4]">
+                                        {/* Radial glow overlay - BEHIND the stack, stronger and larger */}
+                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-gradient-radial from-lime-400/60 via-yellow-300/30 to-transparent z-0 pointer-events-none blur-xl"></div>
+
+                                        {/* Background stacked cards - no transitions, varied rotations, NO opacity fade */}
                                         {imagesLoaded && (
                                             <>
                                                 <div
                                                     key={`next2-${currentIndex}`}
-                                                    className="absolute inset-0 shadow-2xl transform -rotate-12 opacity-30 overflow-hidden"
+                                                    className="absolute inset-0 shadow-2xl transform -rotate-12 overflow-hidden z-10 bg-near-black"
                                                 >
                                                     <img src={nextImage2} alt="" className="w-full h-full object-cover" />
-                                                    {/* Radial glow overlay */}
-                                                    <div className="absolute inset-0 bg-gradient-radial from-lime-300/40 via-yellow-200/20 to-transparent"></div>
                                                 </div>
                                                 <div
                                                     key={`next1-${currentIndex}`}
-                                                    className="absolute inset-0 shadow-2xl transform -rotate-6 opacity-50 overflow-hidden"
+                                                    className="absolute inset-0 shadow-2xl transform -rotate-6 overflow-hidden z-10 bg-near-black"
                                                 >
                                                     <img src={nextImage1} alt="" className="w-full h-full object-cover" />
-                                                    {/* Radial glow overlay */}
-                                                    <div className="absolute inset-0 bg-gradient-radial from-lime-300/40 via-yellow-200/20 to-transparent"></div>
                                                 </div>
                                             </>
                                         )}
 
-                                        {/* Front card - instant switching, no animation, tilted */}
-                                        <div
-                                            key={currentImage}
-                                            className="absolute inset-0 overflow-hidden shadow-2xl z-10 transform -rotate-[15deg]"
-                                        >
-                                            <img
-                                                src={currentImage}
-                                                alt="Portfolio preview"
-                                                className="w-full h-full object-cover"
-                                            />
-                                            {/* Radial glow overlay */}
-                                            <div className="absolute inset-0 bg-gradient-radial from-lime-300/40 via-yellow-200/20 to-transparent"></div>
+                                        {/* Front card - Slower scale animation, NO rotation */}
+                                        <div className="absolute inset-0 z-20">
+                                            <AnimatePresence mode="wait">
+                                                <motion.div
+                                                    key={currentImage}
+                                                    initial={{ scale: 0.8, opacity: 0 }}
+                                                    animate={{ scale: 1, opacity: 1 }}
+                                                    exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                                                    transition={{
+                                                        type: "spring",
+                                                        stiffness: 200,
+                                                        damping: 30,
+                                                        mass: 1
+                                                    }}
+                                                    className="w-full h-full rounded-none shadow-2xl overflow-hidden bg-near-black"
+                                                >
+                                                    <img
+                                                        src={currentImage}
+                                                        alt="Portfolio preview"
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                </motion.div>
+                                            </AnimatePresence>
                                         </div>
                                     </div>
                                 </div>

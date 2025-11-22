@@ -48,29 +48,35 @@ export default function Services() {
             setScrollProgress(progress);
         };
 
+        // Custom scroll chaining handler
+        const handleWheel = (e: WheelEvent) => {
+            const { scrollTop, scrollHeight, clientHeight } = container;
+            const isAtTop = scrollTop === 0;
+            const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
+
+            if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
+                // We are at the boundary and trying to scroll past it.
+                // Manually scroll the window to force chaining.
+                e.preventDefault(); // Prevent the container from trying to scroll (it can't anyway)
+                window.scrollBy({
+                    top: e.deltaY,
+                    behavior: 'auto' // Instant scroll to match wheel feel
+                });
+            }
+        };
+
         container.addEventListener('scroll', handleScroll);
-        return () => container.removeEventListener('scroll', handleScroll);
-    }, []);
+        container.addEventListener('wheel', handleWheel, { passive: false }); // passive: false needed for preventDefault
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
-            gsap.from(".service-item", {
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: "top 70%",
-                },
-                y: 80,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.15,
-                ease: "power3.out"
-            });
-        }, sectionRef);
-
-        return () => ctx.revert();
+        return () => {
+            container.removeEventListener('scroll', handleScroll);
+            container.removeEventListener('wheel', handleWheel);
+        };
     }, []);
 
     const getServiceOpacity = (index: number) => {
+        // Calculate opacity based on scroll position
+        // Items fade out as they move up
         const visibleCount = Math.floor(scrollProgress * (services.length - 2)) + 2;
         return index < visibleCount ? 1 : 0.3;
     };
@@ -91,7 +97,7 @@ export default function Services() {
                 {/* Services Container - Scrollable on Desktop, Normal List on Mobile */}
                 <div
                     ref={servicesContainerRef}
-                    className="lg:h-[700px] lg:overflow-y-scroll overflow-x-hidden relative scroll-smooth"
+                    className="lg:h-[700px] lg:overflow-y-auto overflow-x-hidden relative"
                     style={{
                         scrollbarWidth: 'none',
                         msOverflowStyle: 'none'
