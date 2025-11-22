@@ -141,7 +141,7 @@ export default function Header() {
 
                                         {/* Front card - Slower scale animation, NO rotation */}
                                         <div className="absolute inset-0 z-20">
-                                            <AnimatePresence mode="wait">
+                                            <AnimatePresence>
                                                 <motion.div
                                                     key={currentImage}
                                                     initial={{ scale: 0.8, opacity: 0 }}
@@ -153,7 +153,7 @@ export default function Header() {
                                                         damping: 30,
                                                         mass: 1
                                                     }}
-                                                    className="w-full h-full rounded-none shadow-2xl overflow-hidden bg-near-black"
+                                                    className="absolute inset-0 w-full h-full rounded-none shadow-2xl overflow-hidden bg-near-black"
                                                 >
                                                     <img
                                                         src={currentImage}
