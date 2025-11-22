@@ -5,8 +5,16 @@ import aboutImage from '../assets/IMG_2314.jpeg';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const stats = [
+    { value: 12, suffix: "+", label: "Baby mama's" },
+    { value: 50, suffix: "+", label: "Partnerships" },
+    { value: 150, suffix: "%", label: "Avg. Growth" },
+    { value: 15, suffix: "+", label: "Events Hosted" }
+];
+
 export default function About() {
     const sectionRef = useRef(null);
+    const statsRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -20,6 +28,27 @@ export default function About() {
                 duration: 1.2,
                 stagger: 0.2,
                 ease: "power3.out"
+            });
+
+            // Counter animation
+            stats.forEach((stat, index) => {
+                const element = document.querySelector(`[data-stat-index="${index}"]`);
+                if (element) {
+                    const obj = { value: 0 };
+                    gsap.to(obj, {
+                        value: stat.value,
+                        duration: 2,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: statsRef.current,
+                            start: "top 80%",
+                            once: true,
+                        },
+                        onUpdate: () => {
+                            element.textContent = Math.round(obj.value) + stat.suffix;
+                        }
+                    });
+                }
             });
         }, sectionRef);
 
@@ -54,7 +83,10 @@ export default function About() {
                                 About Me
                             </span>
                             <h2 className="font-serif text-heading-xl md:text-display-md text-white mb-8">
-                                Translating Token Mechanics into Sustainable Growth
+                                From BD to <span className="italic text-gold">Business Development</span>
+                                <span className="block text-body-lg text-white/60 mt-4 font-sans">
+                                    (The only BD I do is Business Development—building partnerships, not paternity tests)
+                                </span>
                             </h2>
                         </div>
 
@@ -68,15 +100,15 @@ export default function About() {
                         </div>
 
                         {/* Stats */}
-                        <div className="about-content grid grid-cols-2 gap-8 pt-8 border-t border-white/10">
-                            {[
-                                { value: "12+", label: "Tokens Launched" },
-                                { value: "50+", label: "Partnerships" },
-                                { value: "150%", label: "Avg. Growth" },
-                                { value: "25+", label: "Events Hosted" }
-                            ].map((stat, index) => (
+                        <div ref={statsRef} className="about-content grid grid-cols-2 gap-8 pt-8 border-t border-white/10">
+                            {stats.map((stat, index) => (
                                 <div key={index}>
-                                    <div className="text-4xl font-serif font-bold text-gold mb-2">{stat.value}</div>
+                                    <div
+                                        data-stat-index={index}
+                                        className="text-6xl font-medium text-gold mb-2"
+                                    >
+                                        0{stat.suffix}
+                                    </div>
                                     <div className="text-sm text-white/50 uppercase tracking-wider font-display">{stat.label}</div>
                                 </div>
                             ))}

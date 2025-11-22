@@ -10,6 +10,31 @@ export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
+
+    const menuItems = [
+        { name: 'About', href: '#about', image: aboutImage },
+        { name: 'Services', href: '#services', image: servicesImage },
+        { name: 'Work', href: '#work', image: workImage },
+        { name: 'Team', href: '#team1', image: heroImage },
+        { name: 'Contact', href: '#contact', image: contactImage }
+    ];
+
+    // Preload all images
+    useEffect(() => {
+        const imagePromises = menuItems.map((item) => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.src = item.image;
+                img.onload = resolve;
+                img.onerror = reject;
+            });
+        });
+
+        Promise.all(imagePromises)
+            .then(() => setImagesLoaded(true))
+            .catch(() => setImagesLoaded(true)); // Still set to true even on error
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -27,14 +52,6 @@ export default function Header() {
         }
     }, [menuOpen]);
 
-    const menuItems = [
-        { name: 'About', href: '#about', image: aboutImage },
-        { name: 'Services', href: '#services', image: servicesImage },
-        { name: 'Work', href: '#work', image: workImage },
-        { name: 'Team', href: '#team1', image: heroImage },
-        { name: 'Contact', href: '#contact', image: contactImage }
-    ];
-
     const handleMenuClick = (href: string) => {
         setMenuOpen(false);
         setTimeout(() => {
@@ -46,6 +63,14 @@ export default function Header() {
     const currentImage = hoveredItem
         ? menuItems.find(item => item.name === hoveredItem)?.image
         : menuItems[0].image;
+
+    // Get the index of current image and calculate next images for the stack
+    const currentIndex = hoveredItem
+        ? menuItems.findIndex(item => item.name === hoveredItem)
+        : 0;
+
+    const nextImage1 = menuItems[(currentIndex + 1) % menuItems.length].image;
+    const nextImage2 = menuItems[(currentIndex + 2) % menuItems.length].image;
 
     return (
         <>
@@ -89,13 +114,33 @@ export default function Header() {
                         </button>
 
                         <div className="grid lg:grid-cols-2 h-full">
-                            {/* Left side - Image gallery with card shuffle */}
-                            <div className="relative bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 overflow-hidden">
+                            {/* Left side - Image gallery with card shuffle - HIDDEN ON MOBILE */}
+                            <div className="hidden lg:block relative bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 overflow-hidden">
                                 <div className="absolute inset-0 flex items-center justify-center p-12">
                                     <div className="relative w-full max-w-md aspect-[3/4]">
-                                        {/* Background stacked cards - static */}
-                                        <div className="absolute inset-0 bg-white rounded-2xl shadow-2xl transform rotate-6 opacity-30"></div>
-                                        <div className="absolute inset-0 bg-white rounded-2xl shadow-2xl transform rotate-3 opacity-50"></div>
+                                        {/* Background stacked cards - showing next images in sequence */}
+                                        {imagesLoaded && (
+                                            <>
+                                                <motion.div
+                                                    key={`next2-${currentIndex}`}
+                                                    className="absolute inset-0 rounded-2xl shadow-2xl transform rotate-6 opacity-30 overflow-hidden"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 0.3 }}
+                                                    transition={{ duration: 0.3 }}
+                                                >
+                                                    <img src={nextImage2} alt="" className="w-full h-full object-cover" />
+                                                </motion.div>
+                                                <motion.div
+                                                    key={`next1-${currentIndex}`}
+                                                    className="absolute inset-0 rounded-2xl shadow-2xl transform rotate-3 opacity-50 overflow-hidden"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 0.5 }}
+                                                    transition={{ duration: 0.3 }}
+                                                >
+                                                    <img src={nextImage1} alt="" className="w-full h-full object-cover" />
+                                                </motion.div>
+                                            </>
+                                        )}
 
                                         {/* Animated card stack - poker shuffle effect */}
                                         <AnimatePresence mode="wait">
@@ -127,7 +172,7 @@ export default function Header() {
                                                     duration: 0.6,
                                                     ease: [0.43, 0.13, 0.23, 0.96]
                                                 }}
-                                                className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl bg-white"
+                                                className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
                                             >
                                                 <img
                                                     src={currentImage}
