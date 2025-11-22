@@ -33,7 +33,7 @@ export default function Header() {
 
         Promise.all(imagePromises)
             .then(() => setImagesLoaded(true))
-            .catch(() => setImagesLoaded(true)); // Still set to true even on error
+            .catch(() => setImagesLoaded(true));
     }, []);
 
     useEffect(() => {
@@ -64,7 +64,6 @@ export default function Header() {
         ? menuItems.find(item => item.name === hoveredItem)?.image
         : menuItems[0].image;
 
-    // Get the index of current image and calculate next images for the stack
     const currentIndex = hoveredItem
         ? menuItems.findIndex(item => item.name === hoveredItem)
         : 0;
@@ -114,35 +113,29 @@ export default function Header() {
                         </button>
 
                         <div className="grid lg:grid-cols-2 h-full">
-                            {/* Left side - Image gallery with card shuffle - HIDDEN ON MOBILE */}
+                            {/* Left side - Image gallery - HIDDEN ON MOBILE */}
                             <div className="hidden lg:block relative bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 overflow-hidden">
                                 <div className="absolute inset-0 flex items-center justify-center p-12">
                                     <div className="relative w-full max-w-md aspect-[3/4]">
-                                        {/* Background stacked cards - showing next images in sequence */}
+                                        {/* Background stacked cards */}
                                         {imagesLoaded && (
                                             <>
-                                                <motion.div
+                                                <div
                                                     key={`next2-${currentIndex}`}
                                                     className="absolute inset-0 rounded-2xl shadow-2xl transform rotate-6 opacity-30 overflow-hidden"
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 0.3 }}
-                                                    transition={{ duration: 0.3 }}
                                                 >
                                                     <img src={nextImage2} alt="" className="w-full h-full object-cover" />
-                                                </motion.div>
-                                                <motion.div
+                                                </div>
+                                                <div
                                                     key={`next1-${currentIndex}`}
                                                     className="absolute inset-0 rounded-2xl shadow-2xl transform rotate-3 opacity-50 overflow-hidden"
-                                                    initial={{ opacity: 0 }}
-                                                    animate={{ opacity: 0.5 }}
-                                                    transition={{ duration: 0.3 }}
                                                 >
                                                     <img src={nextImage1} alt="" className="w-full h-full object-cover" />
-                                                </motion.div>
+                                                </div>
                                             </>
                                         )}
 
-                                        {/* Animated card stack - poker shuffle effect */}
+                                        {/* Animated front card */}
                                         <AnimatePresence mode="wait">
                                             <motion.div
                                                 key={currentImage}

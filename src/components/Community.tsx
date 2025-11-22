@@ -130,16 +130,16 @@ export default function Community() {
     return (
         <section id="community" ref={sectionRef} className="py-32 bg-off-white relative">
             <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
-                {/* Tabs */}
-                <div className="mb-16 community-content">
+                {/* Tabs - Desktop Only */}
+                <div className="mb-16 community-content hidden lg:block">
                     <div className="flex flex-wrap gap-4 justify-center">
                         {(Object.keys(communities) as CommunityType[]).map((key) => (
                             <button
                                 key={key}
                                 onClick={() => setActiveTab(key)}
                                 className={`px-8 py-3 font-display text-sm uppercase tracking-wider rounded-full transition-all duration-300 ${activeTab === key
-                                        ? 'bg-gold text-near-black shadow-lg'
-                                        : 'bg-white border border-charcoal/10 text-charcoal hover:border-gold/30'
+                                    ? 'bg-gold text-near-black shadow-lg'
+                                    : 'bg-white border border-charcoal/10 text-charcoal hover:border-gold/30'
                                     }`}
                             >
                                 {communities[key].name}
@@ -148,8 +148,8 @@ export default function Community() {
                     </div>
                 </div>
 
-                {/* Content */}
-                <div className="tab-content">
+                {/* Desktop: Tabbed Content */}
+                <div className="tab-content hidden lg:block">
                     <div className="grid lg:grid-cols-5 gap-16">
                         {/* Left: Title */}
                         <div className="lg:col-span-2 community-content">
@@ -189,23 +189,91 @@ export default function Community() {
                             </a>
                         </div>
 
-                        {/* Right: Contributions */}
-                        <div className="lg:col-span-3 space-y-6">
-                            {activeCommunity.contributions.map((item, index) => (
-                                <div
-                                    key={index}
-                                    className="community-content group p-8 bg-white border border-charcoal/10 rounded-2xl hover:border-gold/30 hover:shadow-lg transition-all duration-500"
-                                >
-                                    <h3 className="text-xl font-serif text-near-black mb-3 group-hover:text-gold transition-colors duration-300">
-                                        {item.title}
-                                    </h3>
-                                    <p className="text-charcoal/70 leading-relaxed">
-                                        {item.desc}
-                                    </p>
-                                </div>
-                            ))}
+                        {/* Right: Contributions - One Box with Dividers */}
+                        <div className="lg:col-span-3">
+                            <div className="bg-white border border-charcoal/10 rounded-2xl divide-y divide-charcoal/10">
+                                {activeCommunity.contributions.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className="community-content group p-8 first:rounded-t-2xl last:rounded-b-2xl hover:bg-gold/5 transition-all duration-500"
+                                    >
+                                        <h3 className="text-xl font-serif text-near-black mb-3 group-hover:text-gold transition-colors duration-300">
+                                            {item.title}
+                                        </h3>
+                                        <p className="text-charcoal/70 leading-relaxed">
+                                            {item.desc}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
+                </div>
+
+                {/* Mobile: All Communities Stacked */}
+                <div className="lg:hidden space-y-20">
+                    {(Object.keys(communities) as CommunityType[]).map((key) => {
+                        const community = communities[key];
+                        return (
+                            <div key={key} className="space-y-8">
+                                {/* Title and Description */}
+                                <div className="space-y-6">
+                                    <span className="text-sm uppercase tracking-[0.2em] text-charcoal/60 font-display block">
+                                        {community.tagline}
+                                    </span>
+                                    <h2 className="font-serif text-heading-xl text-near-black">
+                                        {community.title} <span className="italic text-gold">{community.highlight}</span>
+                                    </h2>
+                                    <p className="text-body-md text-charcoal/70 leading-relaxed">
+                                        {community.description}
+                                    </p>
+                                </div>
+
+                                {/* Event Photos */}
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="aspect-square rounded-xl overflow-hidden">
+                                        <img
+                                            src={community.images[0]}
+                                            alt={`${community.name} event`}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <div className="aspect-square rounded-xl overflow-hidden">
+                                        <img
+                                            src={community.images[1]}
+                                            alt={`${community.name} engagement`}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* Contributions - One Box with Dividers */}
+                                <div className="bg-white border border-charcoal/10 rounded-2xl divide-y divide-charcoal/10">
+                                    {community.contributions.map((item, index) => (
+                                        <div
+                                            key={index}
+                                            className="p-6 first:rounded-t-2xl last:rounded-b-2xl"
+                                        >
+                                            <h3 className="text-lg font-serif text-near-black mb-2">
+                                                {item.title}
+                                            </h3>
+                                            <p className="text-charcoal/70 text-sm leading-relaxed">
+                                                {item.desc}
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* CTA */}
+                                <a
+                                    href="#"
+                                    className="inline-block px-8 py-4 border border-near-black text-near-black font-display text-sm hover:bg-near-black hover:text-white transition-all duration-300 rounded-full"
+                                >
+                                    {community.cta}
+                                </a>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>

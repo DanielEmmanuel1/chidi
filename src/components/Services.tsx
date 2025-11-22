@@ -88,10 +88,10 @@ export default function Services() {
                     </h2>
                 </div>
 
-                {/* Services Container - Scrollbar Hidden */}
+                {/* Services Container - Scrollable on Desktop, Normal List on Mobile */}
                 <div
                     ref={servicesContainerRef}
-                    className="h-[700px] overflow-y-scroll overflow-x-hidden relative scroll-smooth"
+                    className="lg:h-[700px] lg:overflow-y-scroll overflow-x-hidden relative scroll-smooth"
                     style={{
                         scrollbarWidth: 'none',
                         msOverflowStyle: 'none'
@@ -102,13 +102,13 @@ export default function Services() {
                             display: none;
                         }
                     `}</style>
-                    <div className="space-y-0 pb-20">
+                    <div className="space-y-0 lg:pb-20">
                         {services.map((service, index) => (
                             <div
                                 key={index}
                                 className="service-item group border-t border-charcoal/10 py-12 hover:bg-warm-gray/50 transition-all duration-500 px-8 -mx-8"
                                 style={{
-                                    opacity: getServiceOpacity(index),
+                                    opacity: window.innerWidth >= 1024 ? getServiceOpacity(index) : 1,
                                     transition: 'opacity 0.5s ease-out'
                                 }}
                             >
