@@ -4,7 +4,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
 import Projects from './components/Projects';
-import Team1 from './components/Team1';
+import Community from './components/Community';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -15,7 +15,7 @@ function Home() {
       <About />
       <Services />
       <Projects />
-      <Team1 />
+      <Community />
       <Contact />
       <Footer />
     </Layout>

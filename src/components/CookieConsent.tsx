@@ -32,7 +32,7 @@ export default function CookieConsent() {
                         initial={{ x: -100, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: -100, opacity: 0 }}
-                        className="fixed bottom-6 left-6 z-50 max-w-md w-full"
+                        className="fixed bottom-6 left-6 z-[9999] max-w-md w-full"
                     >
                         <div className="bg-charcoal/95 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-2xl">
                             <div className="flex items-start gap-4">
@@ -59,7 +59,7 @@ export default function CookieConsent() {
 
             <AnimatePresence>
                 {showPreferences && (
-                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm" onClick={() => setShowPreferences(false)}>
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-[9999] flex items-center justify-center p-6 bg-black/80 backdrop-blur-sm" onClick={() => setShowPreferences(false)}>
                         <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} onClick={(e) => e.stopPropagation()} className="bg-charcoal border border-white/10 rounded-2xl p-8 max-w-md w-full">
                             <h2 className="text-2xl font-serif text-white mb-6">Cookie Preferences</h2>
                             <div className="flex gap-3">

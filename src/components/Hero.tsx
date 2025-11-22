@@ -1,36 +1,29 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import heroImage from '../assets/IMG_1156.jpeg';
+import heroImage from '../assets/IMG_2310.jpeg';
 
 export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
     const titleRef = useRef<HTMLHeadingElement>(null);
     const subtitleRef = useRef<HTMLParagraphElement>(null);
-    const ctaRef = useRef<HTMLDivElement>(null);
     const imageRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ delay: 2.5 });
 
-            tl.from(titleRef.current, {
-                y: 60,
+            tl.from(subtitleRef.current, {
+                y: 40,
                 opacity: 0,
-                duration: 1.2,
+                duration: 1,
                 ease: "power3.out"
             })
-                .from(subtitleRef.current, {
-                    y: 40,
+                .from(titleRef.current, {
+                    y: 60,
                     opacity: 0,
-                    duration: 1,
+                    duration: 1.2,
                     ease: "power3.out"
                 }, "-=0.6")
-                .from(ctaRef.current, {
-                    y: 30,
-                    opacity: 0,
-                    duration: 0.8,
-                    ease: "power3.out"
-                }, "-=0.4")
                 .from(imageRef.current, {
                     x: 60,
                     opacity: 0,
@@ -44,46 +37,28 @@ export default function Hero() {
 
     return (
         <section ref={heroRef} className="min-h-screen flex items-center justify-center relative bg-near-black overflow-hidden">
-            {/* Subtle background gradient */}
             <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-near-black to-gold/10 opacity-60"></div>
 
             <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
                     {/* Left column - Text */}
                     <div>
                         {/* Small label */}
-                        <div className="mb-8 opacity-0" ref={subtitleRef}>
-                            <span className="text-sm uppercase tracking-[0.2em] text-gold font-display">
-                                Web3 Business Developer
+                        <div className="mb-6 opacity-0" ref={subtitleRef}>
+                            <span className="text-sm md:text-base uppercase tracking-[0.3em] text-gold/80 font-display">
+                                For the
                             </span>
                         </div>
 
-                        {/* Main headline */}
+                        {/* Main headline - HUGE Every Day style */}
                         <h1
                             ref={titleRef}
-                            className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-white mb-8 opacity-0 leading-[0.95]"
+                            className="font-serif text-7xl md:text-8xl lg:text-9xl xl:text-[140px] text-white mb-0 opacity-0 leading-[0.9] tracking-tight"
                         >
-                            Building Growth for the{' '}
-                            <span className="italic text-gold">Avalanche</span>{' '}
-                            Ecosystem
+                            AVALANCHE
+                            <br />
+                            <span className="text-gold">ECOSYSTEM</span>
                         </h1>
-
-                        {/* Subheadline */}
-                        <p className="text-lg md:text-xl lg:text-2xl text-white/70 mb-12 leading-relaxed font-light">
-                            Partnerships, go-to-market strategy, and community growth for blockchain startups.
-                        </p>
-
-                        {/* CTA */}
-                        <div ref={ctaRef} className="opacity-0">
-                            <a
-                                href="#contact"
-                                className="inline-block group relative overflow-hidden"
-                            >
-                                <span className="relative z-10 inline-block px-12 py-5 text-lg font-display text-near-black bg-gold rounded-full transition-all duration-500 group-hover:bg-white">
-                                    Let's Work Together
-                                </span>
-                            </a>
-                        </div>
                     </div>
 
                     {/* Right column - Image */}
@@ -94,7 +69,6 @@ export default function Hero() {
                                 alt="0xChidi - Web3 Business Developer"
                                 className="w-full h-full object-cover"
                             />
-                            {/* Gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-near-black/40 to-transparent"></div>
                         </div>
                     </div>
