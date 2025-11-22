@@ -116,64 +116,43 @@ export default function Header() {
                             {/* Left side - Image gallery - HIDDEN ON MOBILE */}
                             <div className="hidden lg:block relative bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 overflow-hidden">
                                 <div className="absolute inset-0 flex items-center justify-center p-12">
-                                    <div className="relative w-full max-w-md aspect-[3/4]">
-                                        {/* Background stacked cards */}
+                                    {/* 2x larger container */}
+                                    <div className="relative w-full max-w-2xl aspect-[3/4]">
+                                        {/* Background stacked cards - no transitions, varied rotations */}
                                         {imagesLoaded && (
                                             <>
                                                 <div
                                                     key={`next2-${currentIndex}`}
-                                                    className="absolute inset-0 rounded-2xl shadow-2xl transform rotate-6 opacity-30 overflow-hidden"
+                                                    className="absolute inset-0 shadow-2xl transform -rotate-12 opacity-30 overflow-hidden"
                                                 >
                                                     <img src={nextImage2} alt="" className="w-full h-full object-cover" />
+                                                    {/* Radial glow overlay */}
+                                                    <div className="absolute inset-0 bg-gradient-radial from-lime-300/40 via-yellow-200/20 to-transparent"></div>
                                                 </div>
                                                 <div
                                                     key={`next1-${currentIndex}`}
-                                                    className="absolute inset-0 rounded-2xl shadow-2xl transform rotate-3 opacity-50 overflow-hidden"
+                                                    className="absolute inset-0 shadow-2xl transform -rotate-6 opacity-50 overflow-hidden"
                                                 >
                                                     <img src={nextImage1} alt="" className="w-full h-full object-cover" />
+                                                    {/* Radial glow overlay */}
+                                                    <div className="absolute inset-0 bg-gradient-radial from-lime-300/40 via-yellow-200/20 to-transparent"></div>
                                                 </div>
                                             </>
                                         )}
 
-                                        {/* Animated front card */}
-                                        <AnimatePresence mode="wait">
-                                            <motion.div
-                                                key={currentImage}
-                                                initial={{
-                                                    scale: 0.8,
-                                                    rotate: -15,
-                                                    x: -100,
-                                                    opacity: 0,
-                                                    zIndex: 0
-                                                }}
-                                                animate={{
-                                                    scale: 1,
-                                                    rotate: 0,
-                                                    x: 0,
-                                                    opacity: 1,
-                                                    zIndex: 10
-                                                }}
-                                                exit={{
-                                                    scale: 0.9,
-                                                    rotate: 8,
-                                                    x: 50,
-                                                    y: -20,
-                                                    opacity: 0.3,
-                                                    zIndex: 0
-                                                }}
-                                                transition={{
-                                                    duration: 0.6,
-                                                    ease: [0.43, 0.13, 0.23, 0.96]
-                                                }}
-                                                className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
-                                            >
-                                                <img
-                                                    src={currentImage}
-                                                    alt="Portfolio preview"
-                                                    className="w-full h-full object-cover"
-                                                />
-                                            </motion.div>
-                                        </AnimatePresence>
+                                        {/* Front card - instant switching, no animation, tilted */}
+                                        <div
+                                            key={currentImage}
+                                            className="absolute inset-0 overflow-hidden shadow-2xl z-10 transform -rotate-[15deg]"
+                                        >
+                                            <img
+                                                src={currentImage}
+                                                alt="Portfolio preview"
+                                                className="w-full h-full object-cover"
+                                            />
+                                            {/* Radial glow overlay */}
+                                            <div className="absolute inset-0 bg-gradient-radial from-lime-300/40 via-yellow-200/20 to-transparent"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
