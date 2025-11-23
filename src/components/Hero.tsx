@@ -121,7 +121,7 @@ export default function Hero() {
             <div className="w-full px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center">
 
                 {/* Line 1: A GENIUS [IMG] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start mb-4 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start mb-1 md:-mb-16 lg:-mb-20 xl:-mb-24">
                     <span className="hero-char text-white z-50 tracking-tighter uppercase relative mr-4 md:mr-8 lg:mr-12 xl:mr-16 -mr-1 md:-mr-2 lg:-mr-3" style={charStyle}>A</span>
 
                     <div className="flex">
@@ -135,14 +135,14 @@ export default function Hero() {
                             <img
                                 src={heroImage1}
                                 alt=""
-                                className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
+                                className="w-16 h-16 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* Line 2: WEB3 [IMG] [ROTATING] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-4 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-1 md:-mb-16 lg:-mb-20 xl:-mb-24">
                     <div className="flex">
                         {renderWord("WEB3", "text-white", "z-50")}
                     </div>
@@ -153,13 +153,13 @@ export default function Hero() {
                             <img
                                 src={heroImage3}
                                 alt=""
-                                className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
+                                className="w-16 h-16 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
                             />
                         </div>
                     </div>
 
                     {/* Rotating Word - Higher placement on mobile */}
-                    <div className="flex mt-4 md:mt-0">
+                    <div className="flex mt-2 md:mt-0">
                         {words[wordIndex].split('').map((char, i) => (
                             <span
                                 key={i}
@@ -173,7 +173,7 @@ export default function Hero() {
                 </div>
 
                 {/* Line 3: DEVELOPER [IMG] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mt-8 md:mt-0">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mt-2 md:mt-0">
                     <div className="flex">
                         {renderWord("DEVELOPER", "text-white", "z-50")}
                     </div>
@@ -184,7 +184,7 @@ export default function Hero() {
                             <img
                                 src={heroImage2}
                                 alt=""
-                                className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
+                                className="w-16 h-16 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
                             />
                         </div>
                     </div>
