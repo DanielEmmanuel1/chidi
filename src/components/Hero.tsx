@@ -25,11 +25,12 @@ export default function Hero() {
 
     const charStyle = {
         fontFamily: 'Bebas Neue, Arial, sans-serif',
-        fontSize: '13vw',
         fontWeight: 400,
-        lineHeight: 0.75,
         letterSpacing: '0.02em'
     };
+
+    // Responsive font classes: Mobile (Huge/Tight) vs Desktop (Approved)
+    const textClasses = "text-[23vw] leading-[0.65] md:text-[13vw] md:leading-[0.75]";
 
     return (
         <section
@@ -39,72 +40,90 @@ export default function Hero() {
             <div className="w-full px-2 md:px-4">
 
                 {/* Line 1: A [IMG] GOATED */}
-                <div className="flex items-center gap-x-1 md:gap-x-2 mb-1 md:mb-2">
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase mr-3 md:mr-6" style={charStyle}>A</span>
+                <div className="flex items-center flex-wrap md:flex-nowrap gap-x-0 md:gap-x-1 lg:gap-x-2 mb-0.5 md:mb-1 lg:mb-2 justify-start md:justify-start">
+                    {/* Added mr-2 on mobile to separate 'A' from 'GOATED' */}
+                    <span className={`hero-char text-white tracking-tighter uppercase mr-2 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>A</span>
 
-                    <div className="hero-img transform -rotate-6 flex-shrink-0 z-20 mr-3 md:mr-6">
-                        <div className="bg-white p-2 md:p-3 lg:p-4 shadow-2xl">
+                    <div className="hero-img transform -rotate-6 flex-shrink-0 z-20 mr-0 md:mr-3 lg:mr-6 order-last md:order-none ml-auto md:ml-0">
+                        <div className="bg-white p-1 md:p-2 lg:p-3 xl:p-4 shadow-2xl">
                             <img
                                 src={heroImage1}
                                 alt=""
-                                className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-cover"
+                                className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 xl:w-96 xl:h-96 object-cover"
                             />
                         </div>
                     </div>
 
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>G</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>O</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>A</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>T</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>E</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>D</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>G</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>O</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>A</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>T</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>E</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>D</span>
                 </div>
 
-                {/* Line 2: WEB3 [IMG] BUSINESS - Aligned CENTER */}
-                <div className="flex items-center gap-x-1 md:gap-x-2 mb-1 md:mb-2 justify-center">
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase mr-3 md:mr-6" style={charStyle}>W</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase mr-3 md:mr-6" style={charStyle}>E</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase mr-3 md:mr-6" style={charStyle}>B</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase mr-6 md:mr-12" style={charStyle}>3</span>
+                {/* Line 2: WEB3 [IMG] BUSINESS - Aligned CENTER on Desktop, LEFT on Mobile */}
+                <div className="flex items-center flex-wrap md:flex-nowrap gap-x-0 md:gap-x-1 lg:gap-x-2 mb-0.5 md:mb-1 lg:mb-2 justify-start md:justify-center">
+                    <span className={`hero-char text-white tracking-tighter uppercase mr-0 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>W</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase mr-0 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>E</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase mr-0 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>B</span>
+                    {/* Removed mr-2 from '3' because we are breaking the line */}
+                    <span className={`hero-char text-white tracking-tighter uppercase mr-0 md:mr-6 lg:mr-12 ${textClasses}`} style={charStyle}>3</span>
 
-                    <div className="hero-img transform rotate-12 flex-shrink-0 z-20 mx-3 md:mx-6">
-                        <div className="bg-white p-2 md:p-3 lg:p-4 shadow-2xl">
-                            <img
-                                src={heroImage3}
-                                alt=""
-                                className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-cover"
-                            />
-                        </div>
-                    </div>
-
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase" style={charStyle}>B</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase" style={charStyle}>U</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase" style={charStyle}>S</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase" style={charStyle}>I</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase" style={charStyle}>N</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase" style={charStyle}>E</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase" style={charStyle}>S</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase" style={charStyle}>S</span>
-                </div>
-
-                {/* Line 3: DEVELOPER [IMG] - Aligned CENTER */}
-                <div className="flex items-center gap-x-1 md:gap-x-2 justify-center">
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>D</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>E</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>V</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>E</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>L</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>O</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>P</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30" style={charStyle}>E</span>
-                    <span className="hero-char text-white leading-none tracking-tighter uppercase z-30 mr-3 md:mr-6" style={charStyle}>R</span>
-
-                    <div className="hero-img transform rotate-6 flex-shrink-0 z-20">
-                        <div className="bg-white p-2 md:p-3 lg:p-4 shadow-2xl">
+                    {/* MOVED IMAGE: Display heroImage2 here on MOBILE ONLY, overlapping text */}
+                    <div className="hero-img transform rotate-6 flex-shrink-0 z-40 ml-2 md:hidden">
+                        <div className="bg-white p-1 shadow-2xl">
                             <img
                                 src={heroImage2}
                                 alt=""
-                                className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-cover"
+                                className="w-24 h-24 object-cover"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Original Image 3 (Middle) - Visible on both but positioned for desktop */}
+                    <div className="hero-img transform rotate-12 flex-shrink-0 z-20 mx-0 md:mx-3 lg:mx-6 order-last md:order-none ml-auto">
+                        <div className="bg-white p-1 md:p-2 lg:p-3 xl:p-4 shadow-2xl">
+                            <img
+                                src={heroImage3}
+                                alt=""
+                                className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 xl:w-96 xl:h-96 object-cover"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Force line break on mobile only */}
+                    <div className="w-full md:hidden"></div>
+
+                    <span className={`hero-char text-white tracking-tighter uppercase ${textClasses}`} style={charStyle}>B</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase ${textClasses}`} style={charStyle}>U</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase ${textClasses}`} style={charStyle}>S</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase ${textClasses}`} style={charStyle}>I</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase ${textClasses}`} style={charStyle}>N</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase ${textClasses}`} style={charStyle}>E</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase ${textClasses}`} style={charStyle}>S</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase ${textClasses}`} style={charStyle}>S</span>
+                </div>
+
+                {/* Line 3: DEVELOPER [IMG] - Aligned CENTER on Desktop, LEFT on Mobile */}
+                <div className="flex items-center flex-wrap md:flex-nowrap gap-x-0 md:gap-x-1 lg:gap-x-2 justify-start md:justify-center">
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>D</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>E</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>V</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>E</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>L</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>O</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>P</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>E</span>
+                    <span className={`hero-char text-white tracking-tighter uppercase z-30 mr-0 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>R</span>
+
+                    {/* Original Image 2 Position - HIDDEN on Mobile, Visible on Desktop */}
+                    <div className="hero-img transform rotate-6 flex-shrink-0 z-20 order-last md:order-none ml-auto md:ml-0 hidden md:block">
+                        <div className="bg-white p-1 md:p-2 lg:p-3 xl:p-4 shadow-2xl">
+                            <img
+                                src={heroImage2}
+                                alt=""
+                                className="w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 xl:w-96 xl:h-96 object-cover"
                             />
                         </div>
                     </div>
