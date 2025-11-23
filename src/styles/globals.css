@@ -33,7 +33,12 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    cursor: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    body {
+        cursor: none;
+    }
 }
 
 ::selection {

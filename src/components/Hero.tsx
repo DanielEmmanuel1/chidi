@@ -1,85 +1,93 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import heroImage from '../assets/IMG_2310.jpeg';
+import heroImage1 from '../assets/IMG_1823.jpeg';
+import heroImage2 from '../assets/IMG_2314.jpeg';
 
 export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
-    const titleRef = useRef<HTMLHeadingElement>(null);
-    const subtitleRef = useRef<HTMLParagraphElement>(null);
-    const imageRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            const tl = gsap.timeline({ delay: 2.5 });
+            const tl = gsap.timeline({ delay: 0.3 });
 
-            tl.from(subtitleRef.current, {
-                y: 40,
+            tl.from('.hero-char, .hero-img', {
+                y: 100,
                 opacity: 0,
                 duration: 1,
-                ease: "power3.out"
-            })
-                .from(titleRef.current, {
-                    y: 60,
-                    opacity: 0,
-                    duration: 1.2,
-                    ease: "power3.out"
-                }, "-=0.6")
-                .from(imageRef.current, {
-                    x: 60,
-                    opacity: 0,
-                    duration: 1.2,
-                    ease: "power3.out"
-                }, "-=1");
+                stagger: 0.03,
+                ease: 'power3.out'
+            });
         }, heroRef);
 
         return () => ctx.revert();
     }, []);
 
     return (
-        <section ref={heroRef} className="min-h-screen flex items-center justify-center relative bg-near-black overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-near-black to-gold/10 opacity-60"></div>
+        <section
+            ref={heroRef}
+            className="h-screen w-full relative bg-near-black overflow-hidden flex items-center justify-center"
+        >
+            {/* Full width character-by-character layout */}
+            <div className="w-full flex flex-wrap items-center gap-x-1 md:gap-x-2 gap-y-0 px-2 md:px-4">
 
-            <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
-                    {/* Left column - Text */}
-                    <div>
-                        {/* Small label */}
-                        <div className="mb-6 opacity-0" ref={subtitleRef}>
-                            <span className="text-sm md:text-base uppercase tracking-[0.3em] text-gold/80 font-display">
-                                For the
-                            </span>
-                        </div>
+                {/* A (word spacing after) */}
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase mr-3 md:mr-6">A</span>
 
-                        {/* Main headline - HUGE Every Day style */}
-                        <h1
-                            ref={titleRef}
-                            className="font-serif text-7xl md:text-8xl lg:text-9xl xl:text-[140px] text-white mb-0 opacity-0 leading-[0.9] tracking-tight"
-                        >
-                            AVALANCHE
-                            <br />
-                            <span className="text-gold">ECOSYSTEM</span>
-                        </h1>
-                    </div>
-
-                    {/* Right column - Image */}
-                    <div ref={imageRef} className="opacity-0 relative">
-                        <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-                            <img
-                                src={heroImage}
-                                alt="0xChidi - Web3 Business Developer"
-                                className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-near-black/40 to-transparent"></div>
-                        </div>
+                {/* Image 1 */}
+                <div className="hero-img transform -rotate-6 flex-shrink-0 z-20 mr-3 md:mr-6">
+                    <div className="bg-white p-2 md:p-3 lg:p-4 shadow-2xl">
+                        <img
+                            src={heroImage1}
+                            alt=""
+                            className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-cover"
+                        />
                     </div>
                 </div>
 
-                {/* Scroll indicator */}
-                <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 opacity-60">
-                    <div className="flex flex-col items-center gap-2 animate-bounce">
-                        <span className="text-xs uppercase tracking-widest text-white/50 font-display">Scroll</span>
-                        <div className="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent"></div>
+                {/* WEB3 (word spacing after) */}
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">W</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">E</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">B</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30 mr-3 md:mr-6">3</span>
+
+                {/* BUSINESS (word spacing after) */}
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase">B</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase">U</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase">S</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase">I</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase">N</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase">E</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase">S</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase mr-3 md:mr-6">S</span>
+
+                {/* DEVELOPER (word spacing after) */}
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">D</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">E</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">V</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">E</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">L</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">O</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">P</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30">E</span>
+                <span className="hero-char font-sans text-[18vw] md:text-[16vw] lg:text-[14vw] xl:text-[12vw] text-white leading-none tracking-tighter font-bold uppercase z-30 mr-3 md:mr-6">R</span>
+
+                {/* Image 2 */}
+                <div className="hero-img transform rotate-6 flex-shrink-0 z-20">
+                    <div className="bg-white p-2 md:p-3 lg:p-4 shadow-2xl">
+                        <img
+                            src={heroImage2}
+                            alt=""
+                            className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 object-cover"
+                        />
                     </div>
+                </div>
+            </div>
+
+            {/* Scroll indicator */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-60">
+                <div className="flex flex-col items-center gap-2 animate-bounce">
+                    <span className="text-xs uppercase tracking-widest text-white/50 font-sans">Scroll</span>
+                    <div className="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent" />
                 </div>
             </div>
         </section>
