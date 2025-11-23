@@ -98,8 +98,8 @@ export default function Hero() {
         
         @media (min-width: 1280px) {
             .hero-char, .rotating-char {
-                font-size: clamp(160px, 16vw, 320px);
-                line-height: 0.6;
+                font-size: clamp(220px, 20vw, 500px);
+                line-height: 0.9;
             }
         }
     `;
@@ -130,7 +130,7 @@ export default function Hero() {
             <div className="w-full px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center mb-12 md:mb-0">
 
                 {/* Line 1: A GENIUS [IMG] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start xl:justify-center mb-0 md:-mb-16 lg:-mb-20 xl:-mb-12">
                     <span className="hero-char text-white z-50 tracking-tighter uppercase relative mr-4 md:mr-8 lg:mr-12 xl:mr-16 -mr-1 md:-mr-2 lg:-mr-3" style={charStyle}>A</span>
 
                     <div className="flex">
@@ -151,7 +151,7 @@ export default function Hero() {
                 </div>
 
                 {/* Line 2: WEB3 [IMG] [ROTATING] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-0 md:-mb-16 lg:-mb-20 xl:-mb-12">
                     <div className="flex">
                         {renderWord("WEB3", "text-white", "z-50")}
                     </div>
