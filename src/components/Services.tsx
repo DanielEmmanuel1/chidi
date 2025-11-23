@@ -48,29 +48,10 @@ export default function Services() {
             setScrollProgress(progress);
         };
 
-        // Custom scroll chaining handler
-        const handleWheel = (e: WheelEvent) => {
-            const { scrollTop, scrollHeight, clientHeight } = container;
-            const isAtTop = scrollTop === 0;
-            const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
-
-            if ((isAtTop && e.deltaY < 0) || (isAtBottom && e.deltaY > 0)) {
-                // We are at the boundary and trying to scroll past it.
-                // Manually scroll the window to force chaining.
-                e.preventDefault(); // Prevent the container from trying to scroll (it can't anyway)
-                window.scrollBy({
-                    top: e.deltaY,
-                    behavior: 'auto' // Instant scroll to match wheel feel
-                });
-            }
-        };
-
         container.addEventListener('scroll', handleScroll);
-        container.addEventListener('wheel', handleWheel, { passive: false }); // passive: false needed for preventDefault
 
         return () => {
             container.removeEventListener('scroll', handleScroll);
-            container.removeEventListener('wheel', handleWheel);
         };
     }, []);
 

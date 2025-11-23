@@ -33,7 +33,7 @@ export default function Preloader() {
     }, []);
 
     return (
-        <div ref={preloaderRef} className="fixed inset-0 z-50 flex items-center justify-center bg-off-white">
+        <div ref={preloaderRef} className="fixed inset-0 z-[9990] flex items-center justify-center bg-off-white">
             <div ref={logoRef} className="w-20 h-20 bg-near-black rounded-full flex items-center justify-center">
                 <span className="text-gold font-serif font-bold text-2xl">0x</span>
             </div>

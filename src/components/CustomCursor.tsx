@@ -5,8 +5,19 @@ export default function CustomCursor() {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
     const [isClicking, setIsClicking] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     useEffect(() => {
+        // Only enable custom cursor on devices with a mouse/fine pointer
+        const mediaQuery = window.matchMedia('(pointer: fine)');
+        setIsVisible(mediaQuery.matches);
+
+        const handleMediaChange = (e: MediaQueryListEvent) => {
+            setIsVisible(e.matches);
+        };
+
+        mediaQuery.addEventListener('change', handleMediaChange);
+
         const updateMousePosition = (e: MouseEvent) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
         };
@@ -40,13 +51,16 @@ export default function CustomCursor() {
             }
         };
 
-        window.addEventListener('mousemove', updateMousePosition);
-        window.addEventListener('mousedown', handleMouseDown);
-        window.addEventListener('mouseup', handleMouseUp);
-        document.addEventListener('mouseover', handleMouseOver);
-        document.addEventListener('mouseout', handleMouseOut);
+        if (mediaQuery.matches) {
+            window.addEventListener('mousemove', updateMousePosition);
+            window.addEventListener('mousedown', handleMouseDown);
+            window.addEventListener('mouseup', handleMouseUp);
+            document.addEventListener('mouseover', handleMouseOver);
+            document.addEventListener('mouseout', handleMouseOut);
+        }
 
         return () => {
+            mediaQuery.removeEventListener('change', handleMediaChange);
             window.removeEventListener('mousemove', updateMousePosition);
             window.removeEventListener('mousedown', handleMouseDown);
             window.removeEventListener('mouseup', handleMouseUp);
@@ -54,6 +68,8 @@ export default function CustomCursor() {
             document.removeEventListener('mouseout', handleMouseOut);
         };
     }, []);
+
+    if (!isVisible) return null;
 
     return (
         <>
