@@ -91,14 +91,14 @@ export default function Hero() {
         
         @media (min-width: 1024px) {
             .hero-char, .rotating-char {
-                font-size: clamp(160px, 10vw, 190px);
+                font-size: clamp(120px, 13vw, 220px);
                 line-height: 0.65;
             }
         }
         
-        @media (min-width: 1536px) {
+        @media (min-width: 1400px) {
             .hero-char, .rotating-char {
-                font-size: clamp(220px, 20vw, 500px);
+                font-size: clamp(160px, 16vw, 400px);
                 line-height: 0.9;
             }
         }
