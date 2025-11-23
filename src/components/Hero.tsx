@@ -127,7 +127,7 @@ export default function Hero() {
             <div className="random-glow absolute top-[15%] left-[10%] w-[40vw] h-[40vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
             <div className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
 
-            <div className="w-fit mx-0 md:mx-auto px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center mb-12 md:mb-0">
+            <div className="w-fit md:mt-20 mx-0 md:mx-auto px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center mb-12 md:mb-0">
 
                 {/* Line 1: A GENIUS [IMG] */}
                 <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start md:mr-72 mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
