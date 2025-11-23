@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import heroImage1 from '../assets/IMG_1823.jpeg';
 import heroImage2 from '../assets/IMG_2314.jpeg';
 import heroImage3 from '../assets/IMG_2310.jpeg';
+import heroImageMobile from '../assets/IMG_1805.JPG';
 
 export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
@@ -30,6 +31,14 @@ export default function Hero() {
                 stagger: 0.5,
                 ease: 'power2.out'
             }, "-=1");
+
+            // Animate mobile image
+            tl.from('.mobile-hero-img', {
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                ease: 'power3.out'
+            }, "-=0.5");
         }, heroRef);
 
         return () => ctx.revert();
@@ -95,7 +104,7 @@ export default function Hero() {
         }
     `;
 
-    const renderWord = (word, className = "text-white", zIndex = "z-30") => {
+    const renderWord = (word: string, className = "text-white", zIndex = "z-30") => {
         return word.split('').map((char, i) => (
             <span
                 key={i}
@@ -110,7 +119,7 @@ export default function Hero() {
     return (
         <section
             ref={heroRef}
-            className="h-screen w-full relative bg-near-black overflow-hidden flex items-center justify-center"
+            className="h-screen w-full relative bg-near-black overflow-hidden flex flex-col md:justify-center pt-40 md:pt-0"
         >
             <style>{responsiveFontStyle}</style>
 
@@ -118,10 +127,10 @@ export default function Hero() {
             <div className="random-glow absolute top-[15%] left-[10%] w-[40vw] h-[40vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
             <div className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
 
-            <div className="w-full px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center">
+            <div className="w-full px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center mb-12 md:mb-0">
 
                 {/* Line 1: A GENIUS [IMG] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start mb-1 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
                     <span className="hero-char text-white z-50 tracking-tighter uppercase relative mr-4 md:mr-8 lg:mr-12 xl:mr-16 -mr-1 md:-mr-2 lg:-mr-3" style={charStyle}>A</span>
 
                     <div className="flex">
@@ -135,14 +144,14 @@ export default function Hero() {
                             <img
                                 src={heroImage1}
                                 alt=""
-                                className="w-16 h-16 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
+                                className="w-12 h-12 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* Line 2: WEB3 [IMG] [ROTATING] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-1 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
                     <div className="flex">
                         {renderWord("WEB3", "text-white", "z-50")}
                     </div>
@@ -153,7 +162,7 @@ export default function Hero() {
                             <img
                                 src={heroImage3}
                                 alt=""
-                                className="w-16 h-16 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
+                                className="w-12 h-12 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
                             />
                         </div>
                     </div>
@@ -173,7 +182,7 @@ export default function Hero() {
                 </div>
 
                 {/* Line 3: DEVELOPER [IMG] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mt-2 md:mt-0">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mt-0 md:mt-0">
                     <div className="flex">
                         {renderWord("DEVELOPER", "text-white", "z-50")}
                     </div>
@@ -184,15 +193,27 @@ export default function Hero() {
                             <img
                                 src={heroImage2}
                                 alt=""
-                                className="w-16 h-16 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
+                                className="w-12 h-12 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
                             />
                         </div>
                     </div>
                 </div>
             </div>
 
+            {/* Mobile Only Hero Image */}
+            <div className="mobile-hero-img md:hidden w-full flex justify-center mt-8 px-0 relative z-20">
+                <div className="relative w-full max-w-md px-4">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-2xl pointer-events-none -z-10"></div>
+                    <img
+                        src={heroImageMobile}
+                        alt="0xChidi"
+                        className="w-full h-auto object-cover rounded-2xl"
+                    />
+                </div>
+            </div>
+
             {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-60">
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-60 hidden md:block">
                 <div className="flex flex-col items-center gap-2 animate-bounce">
                     <span className="text-xs uppercase tracking-widest text-white/50 font-sans">Scroll</span>
                     <div className="w-[1px] h-12 bg-gradient-to-b from-white/30 to-transparent" />
