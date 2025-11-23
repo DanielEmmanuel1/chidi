@@ -35,7 +35,7 @@ export default function Hero() {
     return (
         <section
             ref={heroRef}
-            className="h-screen w-full relative bg-near-black overflow-hidden flex items-center justify-center"
+            className="h-screen w-full relative bg-near-black overflow-hidden flex items-start md:items-center justify-center pt-36 md:pt-0"
         >
             <div className="w-full px-2 md:px-4">
 
