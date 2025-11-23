@@ -98,7 +98,7 @@ export default function Hero() {
         
         @media (min-width: 1280px) {
             .hero-char, .rotating-char {
-                font-size: clamp(160px, 16vw, 320px);
+                font-size: clamp(160px, 16vw, 300px);
                 line-height: 0.6;
             }
         }
