@@ -23,7 +23,6 @@ export default function Hero() {
                 ease: 'power3.out'
             });
 
-            // Animate the random glows
             tl.from('.random-glow', {
                 opacity: 0,
                 scale: 0,
@@ -36,9 +35,7 @@ export default function Hero() {
         return () => ctx.revert();
     }, []);
 
-    // Rotating text animation
     useEffect(() => {
-        // Animate IN (skip on first mount as main intro handles it)
         if (isMounted.current) {
             gsap.fromTo('.rotating-char',
                 { y: 50, opacity: 0 },
@@ -48,7 +45,6 @@ export default function Hero() {
             isMounted.current = true;
         }
 
-        // Schedule next rotation
         const timer = setTimeout(() => {
             gsap.to('.rotating-char', {
                 y: -50,
@@ -67,125 +63,128 @@ export default function Hero() {
     const charStyle = {
         fontFamily: 'Bebas Neue, Arial, sans-serif',
         fontWeight: 400,
-        letterSpacing: '0.02em'
+        letterSpacing: '0.02em',
     };
 
-    // Responsive font classes: Mobile (Huge/Tight) vs Desktop (Aggressively Tight Line Height)
-    const textClasses = "text-[23vw] leading-[0.65] md:text-[13vw] md:leading-[0.4]";
+    const responsiveFontStyle = `
+        .hero-char, .rotating-char {
+            font-size: clamp(80px, 22vw, 300px);
+            line-height: 0.75;
+            display: inline-block;
+        }
+        
+        @media (min-width: 768px) {
+            .hero-char, .rotating-char {
+                font-size: clamp(110px, 15vw, 240px);
+                line-height: 0.7;
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .hero-char, .rotating-char {
+                font-size: clamp(120px, 13vw, 220px);
+                line-height: 0.65;
+            }
+        }
+        
+        @media (min-width: 1280px) {
+            .hero-char, .rotating-char {
+                font-size: clamp(160px, 16vw, 320px);
+                line-height: 0.6;
+            }
+        }
+    `;
+
+    const renderWord = (word, className = "text-white", zIndex = "z-30") => {
+        return word.split('').map((char, i) => (
+            <span
+                key={i}
+                className={`hero-char ${className} ${zIndex} tracking-tighter uppercase relative -mr-1 md:-mr-2 lg:-mr-3`}
+                style={charStyle}
+            >
+                {char}
+            </span>
+        ));
+    };
 
     return (
         <section
             ref={heroRef}
-            className="h-screen w-full relative bg-near-black overflow-hidden flex items-start md:items-center justify-center pt-36 md:pt-32"
+            className="h-screen w-full relative bg-near-black overflow-hidden flex items-center justify-center"
         >
-            {/* Random Background Glows - Very subtle & Warmer Yellow */}
+            <style>{responsiveFontStyle}</style>
+
+            {/* Background Glows */}
             <div className="random-glow absolute top-[15%] left-[10%] w-[40vw] h-[40vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
             <div className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
 
-            <div className="w-full px-2 md:px-4 relative z-10">
+            <div className="w-full px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center">
 
-                {/* Line 1: A [IMG] GOATED */}
-                {/* Increased mobile margin-bottom to mb-3 for better spacing */}
-                <div className="relative flex items-center flex-wrap md:flex-nowrap gap-x-0 md:gap-x-1 lg:gap-x-2 mb-3 md:mb-1 lg:mb-2 justify-start md:justify-start">
-                    {/* Added mr-2 on mobile to separate 'A' from 'GOATED' */}
-                    <span className={`hero-char text-white tracking-tighter uppercase mr-2 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>A</span>
+                {/* Line 1: A GENIUS [IMG] */}
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start mb-4 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                    <span className="hero-char text-white z-50 tracking-tighter uppercase relative mr-4 md:mr-8 lg:mr-12 xl:mr-16 -mr-1 md:-mr-2 lg:-mr-3" style={charStyle}>A</span>
 
-                    {/* Mobile Image: Absolute positioning for 'edge' placement */}
-                    <div className="hero-img absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:static md:translate-x-0 md:translate-y-0 transform -rotate-6 flex-shrink-0 z-20 mr-0 md:mr-3 lg:mr-6 order-last md:order-none ml-auto md:ml-0">
-                        {/* Radial Glow for this Polaroid - Subtle & Warmer Yellow */}
+                    <div className="flex">
+                        {renderWord("GENIUS", "text-white", "z-50")}
+                    </div>
+
+                    {/* Polaroid Image 1 - moved to end */}
+                    <div className="hero-img transform -rotate-6 flex-shrink-0 z-10 ml-2 md:ml-4 lg:ml-8 xl:ml-12 mt-2 md:mt-0">
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-radial from-yellow-400/20 via-amber-300/10 to-transparent blur-2xl pointer-events-none -z-10"></div>
-
-                        {/* Added pb-5/pb-10 etc to create polaroid chin */}
-                        <div className="bg-white p-1 pb-5 md:p-2 md:pb-10 lg:p-3 lg:pb-12 xl:p-4 xl:pb-14 shadow-2xl mr-16 mb-4">
+                        <div className="bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl">
                             <img
                                 src={heroImage1}
                                 alt=""
-                                className="w-12 h-12 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 xl:w-96 xl:h-96 object-cover"
+                                className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* Line 2: WEB3 [IMG] [ROTATING] */}
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-4 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                    <div className="flex">
+                        {renderWord("WEB3", "text-white", "z-50")}
+                    </div>
+
+                    {/* Polaroid Image 2 */}
+                    <div className="hero-img transform rotate-8 flex-shrink-0 z-10 mx-2 md:mx-4 lg:mx-8 xl:mx-12 mt-2 md:mt-0">
+                        <div className="bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl">
+                            <img
+                                src={heroImage3}
+                                alt=""
+                                className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
                             />
                         </div>
                     </div>
 
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>G</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>O</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>A</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>T</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>E</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>D</span>
-                </div>
-
-                {/* Line 2: WEB3 [IMG] [ROTATING WORD] */}
-                {/* Refactored to flex-col on mobile to guarantee vertical stability */}
-                {/* Added gap-y-3 on mobile for consistent spacing between WEB3 and WORD */}
-                {/* Increased margin-bottom to mb-3 for consistent spacing before DEVELOPER */}
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-y-3 md:gap-y-0 gap-x-0 md:gap-x-1 lg:gap-x-2 mb-3 md:mb-1 lg:mb-2 justify-start md:justify-center">
-
-                    {/* Part 1: WEB3 + Mobile Image (Moved back here) */}
-                    <div className="relative flex items-center flex-nowrap">
-                        <span className={`hero-char text-white tracking-tighter uppercase mr-0 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>W</span>
-                        <span className={`hero-char text-white tracking-tighter uppercase mr-0 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>E</span>
-                        <span className={`hero-char text-white tracking-tighter uppercase mr-0 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>B</span>
-                        <span className={`hero-char text-white tracking-tighter uppercase mr-0 md:mr-6 lg:mr-12 ${textClasses}`} style={charStyle}>3</span>
-
-                        {/* Mobile Image: Absolute positioning for 'edge' placement */}
-                        <div className="hero-img absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 transform rotate-6 flex-shrink-0 z-50 md:hidden -mr-12">
-                            <div className="bg-white p-1 pb-5 shadow-2xl">
-                                <img
-                                    src={heroImage3}
-                                    alt=""
-                                    className="w-12 h-12 object-cover"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Part 2: Desktop Image + Rotating Word */}
-                    <div className="flex items-center flex-nowrap">
-                        {/* Desktop Image: Hidden on mobile */}
-                        <div className="hero-img transform rotate-12 flex-shrink-0 z-20 mx-0 md:mx-3 lg:mx-6 order-last md:order-none ml-auto hidden md:block">
-                            <div className="bg-white p-1 pb-5 md:p-2 md:pb-10 lg:p-3 lg:pb-12 xl:p-4 xl:pb-14 shadow-2xl mr-8">
-                                <img
-                                    src={heroImage3}
-                                    alt=""
-                                    className="w-12 h-12 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 xl:w-96 xl:h-96 object-cover"
-                                />
-                            </div>
-                        </div>
-
-                        {/* Rotating Word */}
-                        <div className="whitespace-nowrap md:whitespace-normal">
-                            {words[wordIndex].split('').map((char, i) => (
-                                <span
-                                    key={i}
-                                    className={`hero-char rotating-char text-[#F5C857] tracking-tighter uppercase  ${textClasses}`}
-                                    style={charStyle}
-                                >
-                                    {char}
-                                </span>
-                            ))}
-                        </div>
+                    {/* Rotating Word - Higher placement on mobile */}
+                    <div className="flex mt-4 md:mt-0">
+                        {words[wordIndex].split('').map((char, i) => (
+                            <span
+                                key={i}
+                                className="hero-char rotating-char text-[#F5C857] z-50 tracking-tighter uppercase relative -mr-1 md:-mr-2 lg:-mr-3"
+                                style={charStyle}
+                            >
+                                {char}
+                            </span>
+                        ))}
                     </div>
                 </div>
 
-                {/* Line 3: DEVELOPER [IMG] - Aligned CENTER on Desktop, LEFT on Mobile */}
-                <div className="relative flex items-center flex-wrap md:flex-nowrap gap-x-0 md:gap-x-1 lg:gap-x-2 justify-start md:justify-center">
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>D</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>E</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>V</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>E</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>L</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>O</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>P</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 ${textClasses}`} style={charStyle}>E</span>
-                    <span className={`hero-char text-white tracking-tighter uppercase z-30 mr-0 md:mr-3 lg:mr-6 ${textClasses}`} style={charStyle}>R</span>
+                {/* Line 3: DEVELOPER [IMG] */}
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mt-8 md:mt-0">
+                    <div className="flex">
+                        {renderWord("DEVELOPER", "text-white", "z-50")}
+                    </div>
 
-                    {/* Mobile Image: Absolute positioning for 'edge' placement */}
-                    <div className="hero-img absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 md:static md:translate-x-0 md:translate-y-0 transform rotate-6 flex-shrink-0 z-20 order-last md:order-none ml-auto md:ml-0">
-                        {/* Added pb-5/pb-10 etc to create polaroid chin */}
-                        <div className="bg-white p-1 pb-5 md:p-2 md:pb-10 lg:p-3 lg:pb-12 xl:p-4 xl:pb-14 shadow-2xl mr-3">
+                    {/* Polaroid Image 3 - Always visible */}
+                    <div className="hero-img transform rotate-12 flex-shrink-0 z-10 ml-2 md:ml-4 lg:ml-8 xl:ml-12 mt-2 md:mt-0">
+                        <div className="bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl">
                             <img
                                 src={heroImage2}
                                 alt=""
-                                className="w-12 h-12 sm:w-32 sm:h-32 md:w-48 md:h-48 lg:w-72 lg:h-72 xl:w-96 xl:h-96 object-cover"
+                                className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
                             />
                         </div>
                     </div>
