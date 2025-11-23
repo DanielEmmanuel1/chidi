@@ -4,6 +4,9 @@ import heroImage1 from '../assets/IMG_1823.jpeg';
 import heroImage2 from '../assets/IMG_2314.jpeg';
 import heroImage3 from '../assets/IMG_2310.jpeg';
 import heroImageMobile from '../assets/IMG_1805.JPG';
+import heroImage4 from '../assets/IMG_2562.JPG';
+import heroImage5 from '../assets/IMG_1884.jpeg';
+import heroImage6 from '../assets/IMG_2552.JPG';
 
 export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
@@ -11,6 +14,11 @@ export default function Hero() {
     const isMounted = useRef(false);
 
     const words = ["BUSINESS", "COMMUNITY", "MARKETING"];
+
+    // Define image sets for each slider
+    const slider1Images = [heroImage1, heroImage4, heroImage5, heroImage2];
+    const slider2Images = [heroImage3, heroImage2, heroImage6, heroImage1];
+    const slider3Images = [heroImage2, heroImage5, heroImage3, heroImage4];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -138,16 +146,14 @@ export default function Hero() {
                     </div>
 
                     {/* Polaroid Image 1 - moved to end */}
-                    <div className="hero-img transform -rotate-6 flex-shrink-0 z-10 ml-2 md:ml-4 lg:ml-8 xl:ml-12 mt-2 md:mt-0">
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-radial from-yellow-400/20 via-amber-300/10 to-transparent blur-2xl pointer-events-none -z-10"></div>
-                        <div className="bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl">
-                            <img
-                                src={heroImage1}
-                                alt=""
-                                className="w-12 h-12 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
-                            />
-                        </div>
-                    </div>
+                    {/* Polaroid Image 1 - moved to end */}
+                    <PolaroidSlider
+                        images={slider1Images}
+                        rotation="-rotate-6"
+                        className="ml-2 md:ml-4 lg:ml-8 xl:ml-12 mt-2 md:mt-0"
+                        hasGlow={true}
+                        delay={0}
+                    />
                 </div>
 
                 {/* Line 2: WEB3 [IMG] [ROTATING] */}
@@ -157,15 +163,13 @@ export default function Hero() {
                     </div>
 
                     {/* Polaroid Image 2 */}
-                    <div className="hero-img transform rotate-8 flex-shrink-0 z-10 mx-2 md:mx-4 lg:mx-8 xl:mx-12 mt-2 md:mt-0">
-                        <div className="bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl transform rotate-[-20deg]">
-                            <img
-                                src={heroImage3}
-                                alt=""
-                                className="w-12 h-12 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
-                            />
-                        </div>
-                    </div>
+                    <PolaroidSlider
+                        images={slider2Images}
+                        rotation="rotate-8"
+                        className="mx-2 md:mx-4 lg:mx-8 xl:mx-12 mt-2 md:mt-0"
+                        innerRotation="rotate-[-20deg]"
+                        delay={1300}
+                    />
 
                     {/* Rotating Word - Higher placement on mobile */}
                     <div className="flex mt-2 md:mt-0">
@@ -188,15 +192,12 @@ export default function Hero() {
                     </div>
 
                     {/* Polaroid Image 3 - Always visible */}
-                    <div className="hero-img transform rotate-12 flex-shrink-0 z-10 ml-2 md:ml-4 lg:ml-8 xl:ml-12 mt-2 md:mt-0">
-                        <div className="bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl">
-                            <img
-                                src={heroImage2}
-                                alt=""
-                                className="w-12 h-12 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 object-cover"
-                            />
-                        </div>
-                    </div>
+                    <PolaroidSlider
+                        images={slider3Images}
+                        rotation="rotate-12"
+                        className="ml-2 md:ml-4 lg:ml-8 xl:ml-12 mt-2 md:mt-0"
+                        delay={2600}
+                    />
                 </div>
             </div>
 
@@ -220,5 +221,69 @@ export default function Hero() {
                 </div>
             </div>
         </section>
+    );
+}
+
+function PolaroidSlider({ images, rotation, className, hasGlow = false, innerRotation = "", delay = 0 }: { images: string[], rotation: string, className?: string, hasGlow?: boolean, innerRotation?: string, delay?: number }) {
+    const currentIndex = useRef(0);
+    const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
+
+    useEffect(() => {
+        // Initial setup
+        imageRefs.current.forEach((img, index) => {
+            if (img) {
+                gsap.set(img, { y: index === 0 ? 0 : '100%', opacity: index === 0 ? 1 : 0 });
+            }
+        });
+
+        const startSlider = () => {
+            return setInterval(() => {
+                const idx = currentIndex.current;
+                const nextIndex = (idx + 1) % images.length;
+                const currentImg = imageRefs.current[idx];
+                const nextImg = imageRefs.current[nextIndex];
+
+                if (currentImg && nextImg) {
+                    gsap.to(currentImg, { y: '-100%', opacity: 0, duration: 1, ease: 'power2.inOut' });
+                    gsap.fromTo(nextImg,
+                        { y: '100%', opacity: 0 },
+                        { y: '0%', opacity: 1, duration: 1, ease: 'power2.inOut' }
+                    );
+                }
+                currentIndex.current = nextIndex;
+            }, 4000);
+        };
+
+        let intervalId: ReturnType<typeof setInterval>;
+        const timeoutId = setTimeout(() => {
+            intervalId = startSlider();
+        }, delay);
+
+        return () => {
+            clearTimeout(timeoutId);
+            if (intervalId) clearInterval(intervalId);
+        };
+    }, [images.length, delay]);
+
+    return (
+        <div className={`hero-img transform ${rotation} flex-shrink-0 z-10 ${className}`}>
+            {hasGlow && (
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-radial from-yellow-400/20 via-amber-300/10 to-transparent blur-2xl pointer-events-none -z-10"></div>
+            )}
+
+            <div className={`bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl ${innerRotation}`}>
+                <div className="relative w-12 h-12 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 overflow-hidden">
+                    {images.map((img, index) => (
+                        <img
+                            key={index}
+                            ref={el => { imageRefs.current[index] = el }}
+                            src={img}
+                            alt=""
+                            className="absolute top-0 left-0 w-full h-full object-cover"
+                        />
+                    ))}
+                </div>
+            </div>
+        </div>
     );
 }
