@@ -42,7 +42,7 @@ export default function Hero() {
         if (isMounted.current) {
             gsap.fromTo('.rotating-char',
                 { y: 50, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.5, stagger: 0.03, ease: 'power2.out' }
+                { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }
             );
         } else {
             isMounted.current = true;
@@ -54,7 +54,6 @@ export default function Hero() {
                 y: -50,
                 opacity: 0,
                 duration: 0.5,
-                stagger: 0.03,
                 ease: 'power2.in',
                 onComplete: () => {
                     setWordIndex((prev) => (prev + 1) % words.length);
@@ -143,7 +142,7 @@ export default function Hero() {
                     <div className="flex items-center flex-nowrap">
                         {/* Desktop Image: Hidden on mobile */}
                         <div className="hero-img transform rotate-12 flex-shrink-0 z-20 mx-0 md:mx-3 lg:mx-6 order-last md:order-none ml-auto hidden md:block">
-                            <div className="bg-white p-1 pb-5 md:p-2 md:pb-10 lg:p-3 lg:pb-12 xl:p-4 xl:pb-14 shadow-2xl">
+                            <div className="bg-white p-1 pb-5 md:p-2 md:pb-10 lg:p-3 lg:pb-12 xl:p-4 xl:pb-14 shadow-2xl mr-8">
                                 <img
                                     src={heroImage3}
                                     alt=""
@@ -157,7 +156,7 @@ export default function Hero() {
                             {words[wordIndex].split('').map((char, i) => (
                                 <span
                                     key={i}
-                                    className={`hero-char rotating-char text-white tracking-tighter uppercase ${textClasses}`}
+                                    className={`hero-char rotating-char text-[#F5C857] tracking-tighter uppercase  ${textClasses}`}
                                     style={charStyle}
                                 >
                                     {char}
