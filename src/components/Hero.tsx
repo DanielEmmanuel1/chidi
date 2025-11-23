@@ -119,7 +119,7 @@ export default function Hero() {
     return (
         <section
             ref={heroRef}
-            className="h-screen w-full relative bg-near-black overflow-hidden flex flex-col md:justify-center pt-40 md:pt-0"
+            className="md:h-screen flex justify-center relative bg-near-black overflow-hidden flex flex-col md:justify-center pt-40 md:pt-0"
         >
             <style>{responsiveFontStyle}</style>
 
@@ -127,10 +127,10 @@ export default function Hero() {
             <div className="random-glow absolute top-[15%] left-[10%] w-[40vw] h-[40vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
             <div className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
 
-            <div className="w-full px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center mb-12 md:mb-0">
+            <div className="w-fit mx-0 md:mx-auto px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center mb-12 md:mb-0">
 
                 {/* Line 1: A GENIUS [IMG] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-start md:mr-72 mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
                     <span className="hero-char text-white z-50 tracking-tighter uppercase relative mr-4 md:mr-8 lg:mr-12 xl:mr-16 -mr-1 md:-mr-2 lg:-mr-3" style={charStyle}>A</span>
 
                     <div className="flex">
@@ -158,7 +158,7 @@ export default function Hero() {
 
                     {/* Polaroid Image 2 */}
                     <div className="hero-img transform rotate-8 flex-shrink-0 z-10 mx-2 md:mx-4 lg:mx-8 xl:mx-12 mt-2 md:mt-0">
-                        <div className="bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl">
+                        <div className="bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl transform rotate-[-20deg]">
                             <img
                                 src={heroImage3}
                                 alt=""
