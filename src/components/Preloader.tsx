@@ -123,16 +123,21 @@ export default function Preloader() {
                     
                     // --- Liquid Logic ---
                     
-                    // MORE WATERY: Higher frequency, faster speed, larger amplitude
-                    float wave1 = sin(uv.x * 10.0 + uTime * 4.0) * 0.1;
-                    float wave2 = sin(uv.x * 15.0 - uTime * 3.0) * 0.08;
-                    float wave3 = cos(uv.x * 8.0 + uTime * 4.5) * 0.1;
+                    // DAMPING: Reduce wave amplitude as we reach the top (progress > 0.9)
+                    // This ensures the liquid stops moving when full so it doesn't dip below the top
+                    float waveDamping = 1.0 - smoothstep(0.9, 1.0, uProgress);
+                    
+                    // MUCH WAVIER: Significantly increased frequency for more "up and down" cycles
+                    float wave1 = sin(uv.x * 20.0 + uTime * 5.0) * 0.12; // Increased freq from 12.0 to 20.0
+                    float wave2 = sin(uv.x * 25.0 - uTime * 4.0) * 0.10; // Increased freq from 18.0 to 25.0
+                    float wave3 = cos(uv.x * 15.0 + uTime * 6.0) * 0.12; // Increased freq from 10.0 to 15.0
                     
                     // More active turbulence
-                    float turb1 = fbm(vec2(uv.x * 4.0 + uTime * 1.0, uTime * 1.2)) * 0.08;
-                    float turb2 = fbm(vec2(uv.x * 6.0 - uTime * 0.8, uTime * 1.0)) * 0.07;
+                    float turb1 = fbm(vec2(uv.x * 8.0 + uTime * 1.5, uTime * 1.5)) * 0.08;
+                    float turb2 = fbm(vec2(uv.x * 12.0 - uTime * 1.2, uTime * 1.2)) * 0.06;
                     
-                    float waveSurface = wave1 + wave2 + wave3 + turb1 + turb2;
+                    // Apply damping to the total wave surface
+                    float waveSurface = (wave1 + wave2 + wave3 + turb1 + turb2) * waveDamping;
                     
                     // Fill from BOTTOM to TOP
                     float fillLevel = uProgress + waveSurface;
