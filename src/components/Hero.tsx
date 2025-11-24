@@ -157,7 +157,7 @@ export default function Hero() {
                 </div>
 
                 {/* Line 2: WEB3 [IMG] [ROTATING] */}
-                <div className="relative w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
+                <div className="relative md:mr-[50%] w-full flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-0 md:-mb-16 lg:-mb-20 xl:-mb-24">
                     <div className="flex">
                         {renderWord("WEB3", "text-white", "z-50")}
                     </div>
@@ -166,13 +166,13 @@ export default function Hero() {
                     <PolaroidSlider
                         images={slider2Images}
                         rotation="rotate-8"
-                        className="mx-2 md:mx-4 lg:mx-8 xl:mx-12 mt-2 md:mt-0"
+                        className="md:mr-40"
                         innerRotation="rotate-[-20deg]"
                         delay={1300}
                     />
 
                     {/* Rotating Word - Higher placement on mobile */}
-                    <div className="flex mt-2 md:mt-0">
+                    <div className="flex mt-2 md:mt-0 lg:w-0 lg:overflow-visible lg:whitespace-nowrap lg:-ml-32">
                         {words[wordIndex].split('').map((char, i) => (
                             <span
                                 key={i}
