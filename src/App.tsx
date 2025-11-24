@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
+import SmoothScroll from './components/SmoothScroll';
 import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
@@ -25,9 +26,11 @@ function Home() {
 function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <SmoothScroll>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </SmoothScroll>
     </Router>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import aboutImage from '../assets/IMG_2314.jpeg';
+import ParallaxImage from './ParallaxImage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,15 +66,8 @@ export default function About() {
             <div className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10">
                 <div className="grid lg:grid-cols-2 gap-20 items-center">
                     {/* Left: Image */}
-                    <div className="about-content hidden lg:block">
-                        <div className="aspect-[4/5] rounded-2xl overflow-hidden relative group">
-                            <img
-                                src={aboutImage}
-                                alt="0xChidi speaking at Web3 event"
-                                className="w-full h-full object-cover"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-br from-gold/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-                        </div>
+                    <div className="about-content hidden lg:block relative">
+                        <ParallaxImage src={aboutImage} alt="0xChidi speaking at Web3 event" />
                     </div>
 
                     {/* Right: Content */}

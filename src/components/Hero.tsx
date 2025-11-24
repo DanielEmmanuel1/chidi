@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import heroImage1 from '../assets/IMG_1823.jpeg';
 import heroImage2 from '../assets/IMG_2314.jpeg';
 import heroImage3 from '../assets/IMG_2310.jpeg';
@@ -10,6 +11,14 @@ import heroImage6 from '../assets/IMG_2552.JPG';
 
 export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
+    const { scrollYProgress } = useScroll({
+        target: heroRef,
+        offset: ["start start", "end start"]
+    });
+
+    const y1 = useTransform(scrollYProgress, [0, 1], [0, 200]);
+    const y2 = useTransform(scrollYProgress, [0, 1], [0, -150]);
+
     const [wordIndex, setWordIndex] = useState(0);
     const isMounted = useRef(false);
 
@@ -132,8 +141,8 @@ export default function Hero() {
             <style>{responsiveFontStyle}</style>
 
             {/* Background Glows */}
-            <div className="random-glow absolute top-[15%] left-[10%] w-[40vw] h-[40vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
-            <div className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></div>
+            <motion.div style={{ y: y1 }} className="random-glow absolute top-[15%] left-[10%] w-[40vw] h-[40vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></motion.div>
+            <motion.div style={{ y: y2 }} className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></motion.div>
 
             <div className="w-fit md:mt-20 mx-0 md:mx-auto px-4 md:px-8 relative z-10 flex flex-col items-start md:items-center mb-12 md:mb-0">
 
@@ -145,7 +154,6 @@ export default function Hero() {
                         {renderWord("GENIUS", "text-white", "z-50")}
                     </div>
 
-                    {/* Polaroid Image 1 - moved to end */}
                     {/* Polaroid Image 1 - moved to end */}
                     <PolaroidSlider
                         images={slider1Images}
