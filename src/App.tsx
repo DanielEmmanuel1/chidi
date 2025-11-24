@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import SmoothScroll from './components/SmoothScroll';
+import Preloader from './components/Preloader';
 import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
@@ -26,6 +27,7 @@ function Home() {
 function App() {
   return (
     <Router>
+      <Preloader />
       <SmoothScroll>
         <Routes>
           <Route path="/" element={<Home />} />
