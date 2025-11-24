@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import SmoothScroll from './components/SmoothScroll';
+// import SmoothScroll from './components/SmoothScroll';
 import Preloader from './components/Preloader';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -28,11 +28,11 @@ function App() {
   return (
     <Router>
       <Preloader />
-      <SmoothScroll>
+      {/* <SmoothScroll> */}
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
-      </SmoothScroll>
+      {/* </SmoothScroll> */}
     </Router>
   );
 }
