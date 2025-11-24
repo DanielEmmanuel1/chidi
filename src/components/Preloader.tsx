@@ -186,8 +186,8 @@ export default function Preloader() {
         };
         animate();
 
-        // Progress simulation - 12 seconds
-        const duration = 12000;
+        // Progress simulation - 3 seconds for smoother UX
+        const duration = 3000;
         const startTime = Date.now();
 
         const updateProgress = () => {
@@ -200,9 +200,15 @@ export default function Preloader() {
             if (newProgress < 100) {
                 requestAnimationFrame(updateProgress);
             } else {
-                // Wait longer (1.5s) to ensure liquid is fully settled/filled before transitioning
+                // Wait a bit to ensure liquid is fully settled/filled before transitioning
                 setTimeout(() => {
                     const tl = gsap.timeline();
+
+                    // Ensure clicks pass through during fade out
+                    if (preloaderRef.current) {
+                        preloaderRef.current.style.pointerEvents = 'none';
+                    }
+
                     tl.to('.preloader-text', {
                         scale: 8,
                         duration: 1.2,
@@ -218,7 +224,7 @@ export default function Preloader() {
                             }
                         },
                     }, '-=0.5');
-                }, 1500);
+                }, 500);
             }
         };
 
