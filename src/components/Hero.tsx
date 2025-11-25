@@ -85,7 +85,7 @@ export default function Hero() {
         return word.split('').map((char, i) => (
             <span
                 key={i}
-                className={`hero-char ${className} tracking-tighter xl:tracking-wide uppercase relative -mr-1 md:-mr-2 lg:-mr-3 xl:-mr-1`}
+                className={`hero-char ${className} tracking-tighter xl:tracking-normal uppercase relative -mr-1 md:-mr-2 lg:-mr-3 xl:-mr-1`}
                 style={charStyle}
             >
                 {char}
@@ -116,13 +116,22 @@ export default function Hero() {
                         line-height: 0.95;
                     }
                 }
+                /* Laptops: Small (1280px) and Large (1440px) - Same sizing */
                 @media (min-width: 1280px) {
                     .hero-char, .rotating-char {
-                        font-size: clamp(160px, 14vw, 280px);
+                        font-size: clamp(130px, 10vw, 200px);
                         line-height: 0.7;
                     }
                 }
-                @media (min-width: 1536px) {
+                /* Gaming Laptops & Desktops (1600px-2559px) */
+                @media (min-width: 1600px) {
+                    .hero-char, .rotating-char {
+                        font-size: clamp(160px, 12vw, 260px);
+                        line-height: 0.45;
+                    }
+                }
+                /* True Ultrawide Monitors (2560px+) */
+                @media (min-width: 2560px) {
                     .hero-char, .rotating-char {
                         font-size: clamp(220px, 18vw, 492px);
                         line-height: 0.78;
@@ -139,7 +148,7 @@ export default function Hero() {
                 <div className="flex flex-col items-start md:items-center text-left md:text-center gap-0 overflow-visible">
 
                     {/* Line 1: A+[IMG] <--gap--> GENIUS WEB3 */}
-                    <div className="flex flex-col md:flex-row items-start md:items-center overflow-visible mb-0 md:-mb-4 lg:mb-[-20px] xl:mb-4 2xl:-mb-20">
+                    <div className="flex flex-col md:flex-row items-start md:items-center overflow-visible mb-0 md:-mb-4 lg:mb-[-20px] xl:mb-4 xxl:mb-6 ultrawide:mb-8">
                         {/* Mobile: A GENIUS with polaroid */}
                         <div className="flex items-center gap-2 mb-0 md:hidden">
                             <div className="flex">{renderWord("A")}</div>
@@ -158,8 +167,8 @@ export default function Hero() {
                             <div className="flex">{renderWord("WEB3")}</div>
                         </div>
                         {/* Desktop: Original layout */}
-                        <div className="hidden md:flex md:flex-wrap lg:flex-nowrap items-center justify-center gap-3 md:gap-3 lg:gap-6 xl:gap-12 2xl:gap-96 overflow-visible">
-                            <div className="flex items-center gap-2 md:gap-3 lg:gap-4 xl:gap-6 2xl:gap-8 overflow-visible">
+                        <div className="hidden md:flex md:flex-wrap lg:flex-nowrap items-center justify-center gap-3 md:gap-3 lg:gap-6 xl:gap-12 xxl:gap-16 ultrawide:gap-20 overflow-visible">
+                            <div className="flex items-center gap-2 md:gap-3 lg:gap-4 xl:gap-6 xxl:gap-6 ultrawide:gap-8 overflow-visible">
                                 <div className="flex">{renderWord("A")}</div>
                                 <PolaroidSlider
                                     images={slider1Images}
@@ -168,7 +177,7 @@ export default function Hero() {
                                     delay={0}
                                 />
                             </div>
-                            <div className="flex items-center gap-2 md:gap-4 lg:gap-4 xl:gap-8 2xl:gap-16">
+                            <div className="flex items-center gap-2 md:gap-4 lg:gap-4 xl:gap-8 xxl:gap-10 ultrawide:gap-12">
                                 <div className="flex">{renderWord("GENIUS")}</div>
                                 <div className="flex">{renderWord("WEB3")}</div>
                             </div>
@@ -176,13 +185,13 @@ export default function Hero() {
                     </div>
 
                     {/* Line 2: BUSINESS/COMMUNITY/MARKETING [IMG] */}
-                    <div className="relative flex items-center overflow-visible mb-0 md:-mb-4 lg:mb-[-20px] xl:mb-3 2xl:-mb-6">
+                    <div className="relative flex items-center overflow-visible mb-0 md:-mb-4 lg:mb-[-20px] xl:mb-3 xxl:mb-6 ultrawide:mb-8">
                         <div className="flex items-center gap-2 md:gap-0">
                             <div className="flex">
                                 {words[wordIndex].split('').map((char, i) => (
                                     <span
                                         key={i}
-                                        className="hero-char rotating-char text-[#F5C857] tracking-tighter xl:tracking-wide uppercase relative -mr-1 md:-mr-2 lg:-mr-3 xl:-mr-1"
+                                        className="hero-char rotating-char text-[#F5C857] tracking-tighter xl:tracking-normal uppercase relative -mr-1 md:-mr-2 lg:-mr-3 xl:-mr-1"
                                         style={charStyle}
                                     >
                                         {char}
@@ -193,7 +202,7 @@ export default function Hero() {
                     </div>
 
                     {/* Desktop: Fixed Polaroid for Line 2 - fixed to viewport */}
-                    <div className="hidden md:block absolute md:right-[18%] lg:right-[22%] xl:right-[16%] 2xl:right-96 top-1/2 md:translate-y-[-60%] lg:translate-y-[-65%] xl:translate-y-[-60%] 2xl:-translate-y-1/2 z-10">
+                    <div className="hidden md:block absolute md:right-[18%] lg:right-[22%] xl:right-[16%] xxl:top-[60%] ultrawide:right-[22%] top-1/2 md:translate-y-[-60%] lg:translate-y-[-65%] xl:translate-y-[-60%] xxl:translate-y-[-60%] ultrawide:translate-y-[-60%] z-10">
                         <PolaroidSlider
                             images={slider2Images}
                             rotation="rotate-8"
@@ -203,7 +212,7 @@ export default function Hero() {
                     </div>
 
                     {/* Line 3: DEVELOPER */}
-                    <div className="flex items-center mb-0 md:mb-0">
+                    <div className="flex items-center mb-0 md:mb-0 xxl:mt-18 ultrawide:mt-8">
                         <div className="flex items-center gap-2 md:gap-0">
                             <div className="flex">{renderWord("DEVELOPER")}</div>
                             {/* Mobile: Polaroid at end of DEVELOPER */}
@@ -288,8 +297,8 @@ function PolaroidSlider({ images, rotation, hasGlow = false, innerRotation = "",
             {hasGlow && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-radial from-yellow-400/20 via-amber-300/10 to-transparent blur-2xl pointer-events-none -z-10"></div>
             )}
-            <div className={`bg-white p-0.5 md:p-0.5 lg:p-1 xl:p-1 2xl:p-2 pb-1 md:pb-1 lg:pb-1.5 xl:pb-2 2xl:pb-20 shadow-2xl overflow-visible ${innerRotation}`} >
-                <div className="relative w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 2xl:w-[25rem] 2xl:h-[25rem] overflow-hidden">
+            <div className={`bg-white p-0.5 md:p-0.5 lg:p-1 xl:p-1 xxl:p-[0.4rem] ultrawide:p-[4.4rem] pb-1 md:pb-1 lg:pb-1.5 xl:pb-2 xxl:pb-[1.5rem] ultrawide:pb-[8.8rem] shadow-2xl overflow-visible ${innerRotation}`} >
+                <div className="relative w-14 h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-[5.5rem] xl:h-[5.5rem] xxl:w-[15rem] xxl:h-[15rem] ultrawide:w-[19.8rem] ultrawide:h-[19.8rem] overflow-hidden">
                     {images.map((img, index) => (
                         <img
                             key={index}

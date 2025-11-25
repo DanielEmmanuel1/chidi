@@ -51,7 +51,9 @@ export default {
                 md: '768px',
                 lg: '1024px',
                 xl: '1280px',
+                'laptop-lg': '1440px',
                 xxl: '1600px',
+                ultrawide: '2560px',
             },
             backgroundImage: {
                 'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
