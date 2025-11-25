@@ -106,17 +106,23 @@ export default function Hero() {
                 }
                 @media (min-width: 768px) {
                     .hero-char, .rotating-char {
-                        font-size: clamp(140px, 18vw, 320px);
-                        line-height: 0.8;
+                        font-size: clamp(100px, 14vw, 180px);
+                        line-height: 0.85;
                     }
                 }
                 @media (min-width: 1024px) {
                     .hero-char, .rotating-char {
-                        font-size: clamp(180px, 16vw, 380px);
-                        line-height: 0.75;
+                        font-size: clamp(120px, 12vw, 200px);
+                        line-height: 0.82;
                     }
                 }
                 @media (min-width: 1280px) {
+                    .hero-char, .rotating-char {
+                        font-size: clamp(160px, 14vw, 280px);
+                        line-height: 0.8;
+                    }
+                }
+                @media (min-width: 1536px) {
                     .hero-char, .rotating-char {
                         font-size: clamp(220px, 18vw, 492px);
                         line-height: 0.78;
@@ -129,11 +135,11 @@ export default function Hero() {
             <motion.div style={{ y: y2 }} className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></motion.div>
 
             {/* Main Content */}
-            <div className="relative z-10 w-full px-4 md:px-8 lg:px-12 overflow-visible">
+            <div className="relative z-10 w-full px-4 md:px-6 lg:px-8 xl:px-10 2xl:px-12 overflow-visible">
                 <div className="flex flex-col items-start md:items-center text-left md:text-center gap-0 overflow-visible">
 
                     {/* Line 1: A+[IMG] <--gap--> GENIUS WEB3 */}
-                    <div className="flex flex-col md:flex-row items-start md:items-center overflow-visible mb-0 md:-mb-12 lg:-mb-16 xl:-mb-20">
+                    <div className="flex flex-col md:flex-row items-start md:items-center overflow-visible mb-0 md:-mb-4 lg:-mb-6 xl:-mb-16 2xl:-mb-20">
                         {/* Mobile: A GENIUS with polaroid */}
                         <div className="flex items-center gap-2 mb-0 md:hidden">
                             <div className="flex">{renderWord("A")}</div>
@@ -152,8 +158,8 @@ export default function Hero() {
                             <div className="flex">{renderWord("WEB3")}</div>
                         </div>
                         {/* Desktop: Original layout */}
-                        <div className="hidden md:flex md:flex-nowrap items-center gap-16 md:gap-96 overflow-visible">
-                            <div className="flex items-center gap-4 md:gap-8 overflow-visible">
+                        <div className="hidden md:flex md:flex-wrap lg:flex-nowrap items-center justify-center gap-3 md:gap-3 lg:gap-6 xl:gap-12 2xl:gap-96 overflow-visible">
+                            <div className="flex items-center gap-2 md:gap-3 lg:gap-4 xl:gap-6 2xl:gap-8 overflow-visible">
                                 <div className="flex">{renderWord("A")}</div>
                                 <PolaroidSlider
                                     images={slider1Images}
@@ -162,7 +168,7 @@ export default function Hero() {
                                     delay={0}
                                 />
                             </div>
-                            <div className="flex items-center gap-6 md:gap-12 lg:gap-16">
+                            <div className="flex items-center gap-2 md:gap-4 lg:gap-4 xl:gap-8 2xl:gap-16">
                                 <div className="flex">{renderWord("GENIUS")}</div>
                                 <div className="flex">{renderWord("WEB3")}</div>
                             </div>
@@ -170,7 +176,7 @@ export default function Hero() {
                     </div>
 
                     {/* Line 2: BUSINESS/COMMUNITY/MARKETING [IMG] */}
-                    <div className="relative flex items-center overflow-visible mb-0 md:-mb-12 lg:-mb-16 xl:-mb-6">
+                    <div className="relative flex items-center overflow-visible mb-0 md:-mb-4 lg:-mb-6 xl:-mb-14 2xl:-mb-6">
                         <div className="flex items-center gap-2 md:gap-0">
                             <div className="flex">
                                 {words[wordIndex].split('').map((char, i) => (
@@ -185,9 +191,9 @@ export default function Hero() {
                             </div>
                         </div>
                     </div>
-                    
+
                     {/* Desktop: Fixed Polaroid for Line 2 - fixed to viewport */}
-                    <div className="hidden md:block absolute right-4 md:right-8 lg:right-12 xl:right-96 top-1/2 -translate-y-1/2 z-10">
+                    <div className="hidden md:block absolute md:right-[18%] lg:right-4 xl:right-8 2xl:right-96 top-1/2 md:translate-y-[-60%] lg:-translate-y-1/2 z-10">
                         <PolaroidSlider
                             images={slider2Images}
                             rotation="rotate-8"
@@ -282,8 +288,8 @@ function PolaroidSlider({ images, rotation, hasGlow = false, innerRotation = "",
             {hasGlow && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-radial from-yellow-400/20 via-amber-300/10 to-transparent blur-2xl pointer-events-none -z-10"></div>
             )}
-            <div className={`bg-white p-0.5 md:p-2 pb-1 md:pb-5 lg:pb-7 xl:pb-20 shadow-2xl overflow-visible ${innerRotation}`} >
-                <div className="relative w-14 h-14 md:w-96 md:h-96 lg:w-[30rem] lg:h-[30rem] xl:w-[25rem] xl:h-[25rem] overflow-hidden">
+            <div className={`bg-white p-0.5 md:p-0.5 lg:p-1 xl:p-2 pb-1 md:pb-1 lg:pb-1.5 xl:pb-3 2xl:pb-20 shadow-2xl overflow-visible ${innerRotation}`} >
+                <div className="relative w-14 h-14 md:w-16 md:h-16 lg:w-28 lg:h-28 xl:w-48 xl:h-48 2xl:w-[25rem] 2xl:h-[25rem] overflow-hidden">
                     {images.map((img, index) => (
                         <img
                             key={index}
