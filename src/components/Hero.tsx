@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import gsap from 'gsap';
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
 import heroImage1 from '../assets/IMG_1823.jpeg';
@@ -17,9 +17,8 @@ export default function Hero() {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
-    // Smooth spring animation for mouse tracking
-    const smoothMouseX = useSpring(mouseX, { damping: 50, stiffness: 200 });
-    const smoothMouseY = useSpring(mouseY, { damping: 50, stiffness: 200 });
+    const smoothMouseX = useSpring(mouseX, { damping: 35, stiffness: 350 });
+    const smoothMouseY = useSpring(mouseY, { damping: 35, stiffness: 350 });
 
     const { scrollYProgress } = useScroll({
         target: heroRef,
@@ -28,14 +27,12 @@ export default function Hero() {
 
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
-    // Track mouse movement
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             if (heroRef.current) {
                 const rect = heroRef.current.getBoundingClientRect();
-                // Map mouse position to -400 to 400 range for 2x movement
-                const x = ((e.clientX - rect.left - rect.width / 2) / rect.width) * 800;
-                const y = ((e.clientY - rect.top - rect.height / 2) / rect.height) * 800;
+                const x = ((e.clientX - rect.left - rect.width / 2) / rect.width) * 2800;
+                const y = ((e.clientY - rect.top - rect.height / 2) / rect.height) * 2800;
                 mouseX.set(x);
                 mouseY.set(y);
             }
@@ -47,7 +44,6 @@ export default function Hero() {
 
     useEffect(() => {
         const ctx = gsap.context(() => {
-            // Animate the main heading with SplitText-like effect
             gsap.from('.hero-title', {
                 y: 120,
                 opacity: 0,
@@ -56,7 +52,6 @@ export default function Hero() {
                 delay: 0.5
             });
 
-            // Animate the subtitle
             gsap.from('.hero-subtitle', {
                 y: 60,
                 opacity: 0,
@@ -65,7 +60,6 @@ export default function Hero() {
                 delay: 0.8
             });
 
-            // Animate floating images with stagger
             gsap.from('.floating-img', {
                 scale: 0,
                 opacity: 0,
@@ -82,60 +76,84 @@ export default function Hero() {
         return () => ctx.revert();
     }, []);
 
-    // Generate larger images spread across massive canvas
-    const generateImages = () => {
+    // Good coverage + max~4 visible
+    const floatingImages = useMemo(() => {
         const images = [heroImage1, heroImage2, heroImage3, heroImage4, heroImage5, heroImage6, heroImage7, heroImage8, heroImage9, heroImage10];
-        const sizes = ['20px', '25px', '30px', '35px', '40px', '45px', '50px'];
+        const sizes = [320, 360, 400, 440, 480, 520, 550];
         const result = [];
 
-        // Generate images with LOTS of spacing - only 4 per zone instead of 7
-        for (let zone = -7; zone <= 8; zone++) {
-            const zoneStart = zone * 100;
-            const imagesPerZone = 4; // Reduced from 7 for more spacing
+        // 11x7 grid = 77 images
+        // Spacing: 70px horizontal, 80px vertical
+        for (let hZone = -5; hZone <= 5; hZone++) {
+            for (let vZone = -3; vZone <= 3; vZone++) {
+                const horizontalStart = hZone * 70;
+                const verticalStart = vZone * 80;
 
-            for (let i = 0; i < imagesPerZone; i++) {
                 const randomImg = images[Math.floor(Math.random() * images.length)];
                 const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
-                const randomTop = `${Math.floor(Math.random() * 70) + 10}%`; // More centered vertically
-                const randomLeft = `${Math.floor(Math.random() * 60) + zoneStart + 20}%`; // More spacing horizontally
+
+                const randomTop = `${Math.floor(Math.random() * 25) + verticalStart + 37.5}%`;
+                const randomLeft = `${Math.floor(Math.random() * 25) + horizontalStart + 37.5}%`;
 
                 result.push({
                     img: randomImg,
-                    size: `w-[${randomSize}] h-[${randomSize}]`,
+                    size: randomSize,
                     top: randomTop,
                     left: randomLeft
                 });
             }
         }
 
-        return result;
-    };
+        // 4 guaranteed viewport images
+        const viewportImages = [
+            { top: '15%', left: '15%' },
+            { top: '20%', left: '75%' },
+            { top: '70%', left: '20%' },
+            { top: '65%', left: '70%' }
+        ];
 
-    const floatingImages = generateImages();
+        viewportImages.forEach(position => {
+            const randomImg = images[Math.floor(Math.random() * images.length)];
+            const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+
+            result.push({
+                img: randomImg,
+                size: randomSize,
+                top: position.top,
+                left: position.left
+            });
+        });
+
+        return result;
+    }, []);
 
     return (
         <section
             ref={heroRef}
             className="relative min-h-screen flex items-center justify-center bg-near-black overflow-hidden"
         >
-            {/* Vast canvas of floating images that moves with mouse - NO OVERLAY */}
             <motion.div
                 className="absolute inset-0 w-full h-full pointer-events-none z-5"
                 style={{
-                    x: smoothMouseX,
-                    y: smoothMouseY,
+                    x: useTransform(smoothMouseX, (v) => -v),
+                    y: useTransform(smoothMouseY, (v) => -v),
+                    willChange: 'transform'
                 }}
             >
                 {floatingImages.map((item, index) => (
                     <div
                         key={index}
-                        className={`floating-img absolute ${item.size}`}
+                        className="floating-img absolute"
                         style={{
                             top: item.top,
                             left: item.left,
+                            // MOBILE RESPONSIVE: 0.06vw multiplier for proper mobile sizing
+                            // Mobile 425px: ~80-140px, Tablet 768px: ~145-250px, Desktop 1920px+: 320-550px
+                            width: `clamp(${item.size * 0.25}px, ${item.size * 0.06}vw, ${item.size}px)`,
+                            height: `clamp(${item.size * 0.25}px, ${item.size * 0.06}vw, ${item.size}px)`
                         }}
                     >
-                        <div className="relative w-full h-full rounded-xl overflow-hidden shadow-2xl border-2 border-white/10">
+                        <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border-2 border-white/10">
                             <img
                                 src={item.img}
                                 alt=""
@@ -147,19 +165,16 @@ export default function Hero() {
                 ))}
             </motion.div>
 
-            {/* Main Content - HIGH Z-INDEX */}
             <motion.div
                 style={{ opacity }}
                 className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 text-left"
             >
-                {/* Main Heading - Large and Bold like CLOU */}
                 <h1 className="hero-title mb-6 md:mb-10">
                     <span className="block text-white font-display text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] font-bold tracking-tighter leading-[0.85]">
                         0xCHIDI
                     </span>
                 </h1>
 
-                {/* Subtitle - Clean and simple */}
                 <div className="hero-subtitle max-w-3xl">
                     <p className="text-white/70 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light leading-relaxed">
                         A <span className="text-[#F5C857] font-medium">Genius Web3</span> Business Developer with focus on decentralized solutions, blockchain innovation, and community building.
@@ -167,7 +182,6 @@ export default function Hero() {
                 </div>
             </motion.div>
 
-            {/* Scroll Indicator */}
             <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-20">
                 <motion.div
                     animate={{ y: [0, 12, 0] }}
