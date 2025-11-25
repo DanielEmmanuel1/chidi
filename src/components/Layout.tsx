@@ -20,7 +20,7 @@ export default function Layout({ children }: LayoutProps) {
             <CookieConsent />
             <Preloader />
             <Header />
-            <main className="bg-near-black min-h-screen text-off-white">
+            <main className="bg-near-black min-h-screen text-off-white overflow-visible">
                 {children}
             </main>
         </HelmetProvider>

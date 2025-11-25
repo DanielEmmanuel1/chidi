@@ -96,7 +96,7 @@ export default function Hero() {
     return (
         <section
             ref={heroRef}
-            className="relative bg-near-black overflow-hidden py-32 md:py-40 lg:py-48"
+            className="relative bg-near-black py-32 md:py-40 lg:py-48 overflow-visible"
         >
             <style>{`
                 .hero-char, .rotating-char {
@@ -119,7 +119,7 @@ export default function Hero() {
                 @media (min-width: 1280px) {
                     .hero-char, .rotating-char {
                         font-size: clamp(220px, 18vw, 492px);
-                        line-height: 0.7;
+                        line-height: 0.78;
                     }
                 }
             `}</style>
@@ -129,48 +129,87 @@ export default function Hero() {
             <motion.div style={{ y: y2 }} className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></motion.div>
 
             {/* Main Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
-                <div className="flex flex-col items-start md:items-center text-left md:text-center">
+            <div className="relative z-10 w-full px-4 md:px-8 lg:px-12 overflow-visible">
+                <div className="flex flex-col items-start md:items-center text-left md:text-center gap-0 overflow-visible">
 
-                    {/* Line 1: A [POLAROID] GENIUS WEB3 */}
-                    <div className="flex flex-wrap md:flex-nowrap items-center gap-6 md:gap-12 lg:gap-16 xl:gap-24">
-                        <div className="flex shrink-0">{renderWord("A")}</div>
-                        <PolaroidSlider
-                            images={slider1Images}
-                            rotation="-rotate-6"
-                            className="shrink-0"
-                            hasGlow={true}
-                            delay={0}
-                        />
-                        <div className="flex shrink-0">{renderWord("GENIUS")}</div>
-                        <div className="flex shrink-0">{renderWord("WEB3")}</div>
+                    {/* Line 1: A+[IMG] <--gap--> GENIUS WEB3 */}
+                    <div className="flex flex-col md:flex-row items-start md:items-center overflow-visible mb-0 md:-mb-12 lg:-mb-16 xl:-mb-20">
+                        {/* Mobile: A GENIUS with polaroid */}
+                        <div className="flex items-center gap-2 mb-0 md:hidden">
+                            <div className="flex">{renderWord("A")}</div>
+                            <div className="flex">{renderWord("GENIUS")}</div>
+                            <div className="ml-2">
+                                <PolaroidSlider
+                                    images={slider1Images}
+                                    rotation="-rotate-6"
+                                    hasGlow={true}
+                                    delay={0}
+                                />
+                            </div>
+                        </div>
+                        {/* Mobile: WEB3 */}
+                        <div className="flex items-center mb-0 md:hidden">
+                            <div className="flex">{renderWord("WEB3")}</div>
+                        </div>
+                        {/* Desktop: Original layout */}
+                        <div className="hidden md:flex md:flex-nowrap items-center gap-16 md:gap-96 overflow-visible">
+                            <div className="flex items-center gap-4 md:gap-8 overflow-visible">
+                                <div className="flex">{renderWord("A")}</div>
+                                <PolaroidSlider
+                                    images={slider1Images}
+                                    rotation="-rotate-6"
+                                    hasGlow={true}
+                                    delay={0}
+                                />
+                            </div>
+                            <div className="flex items-center gap-6 md:gap-12 lg:gap-16">
+                                <div className="flex">{renderWord("GENIUS")}</div>
+                                <div className="flex">{renderWord("WEB3")}</div>
+                            </div>
+                        </div>
                     </div>
 
-                    {/* Line 2: BUSINESS/COMMUNITY/MARKETING [POLAROID] */}
-                    <div className="flex flex-wrap md:flex-nowrap items-center gap-6 md:gap-12 lg:gap-16 xl:gap-24">
-                        <div className="flex shrink-0">
-                            {words[wordIndex].split('').map((char, i) => (
-                                <span
-                                    key={i}
-                                    className="hero-char rotating-char text-[#F5C857] tracking-tighter uppercase relative -mr-1 md:-mr-2 lg:-mr-3 xl:-mr-4"
-                                    style={charStyle}
-                                >
-                                    {char}
-                                </span>
-                            ))}
+                    {/* Line 2: BUSINESS/COMMUNITY/MARKETING [IMG] */}
+                    <div className="relative flex items-center overflow-visible mb-0 md:-mb-12 lg:-mb-16 xl:-mb-6">
+                        <div className="flex items-center gap-2 md:gap-0">
+                            <div className="flex">
+                                {words[wordIndex].split('').map((char, i) => (
+                                    <span
+                                        key={i}
+                                        className="hero-char rotating-char text-[#F5C857] tracking-tighter uppercase relative -mr-1 md:-mr-2 lg:-mr-3 xl:-mr-4"
+                                        style={charStyle}
+                                    >
+                                        {char}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
+                    </div>
+                    
+                    {/* Desktop: Fixed Polaroid for Line 2 - fixed to viewport */}
+                    <div className="hidden md:block absolute right-4 md:right-8 lg:right-12 xl:right-96 top-1/2 -translate-y-1/2 z-10">
                         <PolaroidSlider
                             images={slider2Images}
                             rotation="rotate-8"
-                            className="shrink-0"
                             innerRotation="rotate-[-20deg]"
                             delay={1300}
                         />
                     </div>
 
                     {/* Line 3: DEVELOPER */}
-                    <div className="flex items-center">
-                        <div className="flex">{renderWord("DEVELOPER")}</div>
+                    <div className="flex items-center mb-0 md:mb-0">
+                        <div className="flex items-center gap-2 md:gap-0">
+                            <div className="flex">{renderWord("DEVELOPER")}</div>
+                            {/* Mobile: Polaroid at end of DEVELOPER */}
+                            <div className="md:hidden ml-2">
+                                <PolaroidSlider
+                                    images={slider2Images}
+                                    rotation="rotate-8"
+                                    innerRotation="rotate-[-20deg]"
+                                    delay={1300}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -198,7 +237,7 @@ export default function Hero() {
     );
 }
 
-function PolaroidSlider({ images, rotation, className, hasGlow = false, innerRotation = "", delay = 0 }: { images: string[], rotation: string, className?: string, hasGlow?: boolean, innerRotation?: string, delay?: number }) {
+function PolaroidSlider({ images, rotation, hasGlow = false, innerRotation = "", delay = 0 }: { images: string[], rotation: string, hasGlow?: boolean, innerRotation?: string, delay?: number }) {
     const currentIndex = useRef(0);
     const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
 
@@ -239,12 +278,12 @@ function PolaroidSlider({ images, rotation, className, hasGlow = false, innerRot
     }, [images.length, delay]);
 
     return (
-        <div className={`hero-img transform ${rotation} flex-shrink-0 z-10 ${className}`}>
+        <div className="hero-img flex-shrink-0 overflow-visible" style={{ transform: `rotate(${rotation === "-rotate-6" ? "-6deg" : "8deg"})`, zIndex: 15 }}>
             {hasGlow && (
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-radial from-yellow-400/20 via-amber-300/10 to-transparent blur-2xl pointer-events-none -z-10"></div>
             )}
-            <div className={`bg-white p-1 md:p-2 pb-4 md:pb-5 lg:pb-7 xl:pb-10 shadow-2xl ${innerRotation}`}>
-                <div className="relative w-12 h-12 md:w-32 md:h-32 lg:w-40 lg:h-40 xl:w-80 xl:h-80 overflow-hidden">
+            <div className={`bg-white p-0.5 md:p-2 pb-1 md:pb-5 lg:pb-7 xl:pb-20 shadow-2xl overflow-visible ${innerRotation}`} >
+                <div className="relative w-14 h-14 md:w-96 md:h-96 lg:w-[30rem] lg:h-[30rem] xl:w-[25rem] xl:h-[25rem] overflow-hidden">
                     {images.map((img, index) => (
                         <img
                             key={index}
