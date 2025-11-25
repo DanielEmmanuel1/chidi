@@ -246,15 +246,31 @@ export default function Preloader() {
         >
             <div
                 ref={textContainerRef}
-                className="preloader-text relative"
-                style={{ fontSize: 'clamp(80px, 15vw, 200px)', width: '100%', height: '1em' }}
+                className="preloader-text relative flex items-center justify-center"
+                style={{
+                    fontSize: 'clamp(80px, 15vw, 200px)',
+                    width: 'fit-content',
+                    height: '1em',
+                    fontFamily: '"Arial Black", sans-serif',
+                    letterSpacing: '-0.02em'
+                }}
             >
+                {/* Invisible text for sizing */}
+                <span className="opacity-0 select-none">0xChidi</span>
+
                 {/* Three.js liquid canvas (renders BOTH outline and liquid) */}
                 <canvas
                     ref={canvasRef}
                     className="absolute top-0 left-0 w-full h-full"
                     style={{ width: '100%', height: '100%' }}
                 />
+
+                {/* Credit - Top Right */}
+                <div className="absolute bottom-full right-0 mb-2 flex items-center gap-2 whitespace-nowrap">
+                    <p className="text-white/50 text-[10px] tracking-[0.2em] uppercase font-light">
+                        Designed & Built by Deon
+                    </p>
+                </div>
             </div>
 
             {/* Progress counter */}
