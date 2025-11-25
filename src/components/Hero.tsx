@@ -52,14 +52,6 @@ export default function Hero() {
                 delay: 0.5
             });
 
-            gsap.from('.hero-subtitle', {
-                y: 60,
-                opacity: 0,
-                duration: 1.2,
-                ease: 'power3.out',
-                delay: 0.8
-            });
-
             gsap.from('.floating-img', {
                 scale: 0,
                 opacity: 0,
@@ -76,14 +68,11 @@ export default function Hero() {
         return () => ctx.revert();
     }, []);
 
-    // Good coverage + max~4 visible
     const floatingImages = useMemo(() => {
         const images = [heroImage1, heroImage2, heroImage3, heroImage4, heroImage5, heroImage6, heroImage7, heroImage8, heroImage9, heroImage10];
         const sizes = [320, 360, 400, 440, 480, 520, 550];
         const result = [];
 
-        // 11x7 grid = 77 images
-        // Spacing: 70px horizontal, 80px vertical
         for (let hZone = -5; hZone <= 5; hZone++) {
             for (let vZone = -3; vZone <= 3; vZone++) {
                 const horizontalStart = hZone * 70;
@@ -104,7 +93,6 @@ export default function Hero() {
             }
         }
 
-        // 4 guaranteed viewport images
         const viewportImages = [
             { top: '15%', left: '15%' },
             { top: '20%', left: '75%' },
@@ -147,8 +135,6 @@ export default function Hero() {
                         style={{
                             top: item.top,
                             left: item.left,
-                            // MOBILE RESPONSIVE: 0.06vw multiplier for proper mobile sizing
-                            // Mobile 425px: ~80-140px, Tablet 768px: ~145-250px, Desktop 1920px+: 320-550px
                             width: `clamp(${item.size * 0.25}px, ${item.size * 0.06}vw, ${item.size}px)`,
                             height: `clamp(${item.size * 0.25}px, ${item.size * 0.06}vw, ${item.size}px)`
                         }}
@@ -169,17 +155,11 @@ export default function Hero() {
                 style={{ opacity }}
                 className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 text-left"
             >
-                <h1 className="hero-title mb-6 md:mb-10">
+                <h1 className="hero-title">
                     <span className="block text-white font-display text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] font-bold tracking-tighter leading-[0.85]">
                         0xCHIDI
                     </span>
                 </h1>
-
-                <div className="hero-subtitle max-w-3xl">
-                    <p className="text-white/70 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-light leading-relaxed">
-                        A <span className="text-[#F5C857] font-medium">Genius Web3</span> Business Developer with focus on decentralized solutions, blockchain innovation, and community building.
-                    </p>
-                </div>
             </motion.div>
 
             <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-20">
