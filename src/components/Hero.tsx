@@ -26,7 +26,6 @@ export default function Hero() {
 
     const slider1Images = [heroImage1, heroImage4, heroImage5, heroImage2];
     const slider2Images = [heroImage3, heroImage2, heroImage6, heroImage1];
-    const slider3Images = [heroImage2, heroImage5, heroImage3, heroImage4];
 
     useEffect(() => {
         const ctx = gsap.context(() => {
@@ -82,11 +81,11 @@ export default function Hero() {
         letterSpacing: '0.02em',
     };
 
-    const renderWord = (word: string, className = "text-white", zIndex = "z-30") => {
+    const renderWord = (word: string, className = "text-white") => {
         return word.split('').map((char, i) => (
             <span
                 key={i}
-                className={`hero-char ${className} ${zIndex} tracking-tighter uppercase relative -mr-1 md:-mr-2 lg:-mr-3`}
+                className={`hero-char ${className} tracking-tighter uppercase relative -mr-1 md:-mr-2 lg:-mr-3 xl:-mr-4`}
                 style={charStyle}
             >
                 {char}
@@ -102,25 +101,25 @@ export default function Hero() {
             <style>{`
                 .hero-char, .rotating-char {
                     font-size: clamp(80px, 22vw, 300px);
-                    line-height: 0.75;
+                    line-height: 0.85;
                     display: inline-block;
                 }
                 @media (min-width: 768px) {
                     .hero-char, .rotating-char {
-                        font-size: clamp(110px, 15vw, 240px);
-                        line-height: 0.7;
+                        font-size: clamp(140px, 18vw, 320px);
+                        line-height: 0.8;
                     }
                 }
                 @media (min-width: 1024px) {
                     .hero-char, .rotating-char {
-                        font-size: clamp(120px, 13vw, 220px);
-                        line-height: 0.65;
+                        font-size: clamp(180px, 16vw, 380px);
+                        line-height: 0.75;
                     }
                 }
                 @media (min-width: 1280px) {
                     .hero-char, .rotating-char {
-                        font-size: clamp(160px, 16vw, 270px);
-                        line-height: 0.6;
+                        font-size: clamp(220px, 18vw, 492px);
+                        line-height: 0.7;
                     }
                 }
             `}</style>
@@ -129,61 +128,55 @@ export default function Hero() {
             <motion.div style={{ y: y1 }} className="random-glow absolute top-[15%] left-[10%] w-[40vw] h-[40vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></motion.div>
             <motion.div style={{ y: y2 }} className="random-glow absolute bottom-[10%] right-[5%] w-[50vw] h-[50vw] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-3xl pointer-events-none z-0"></motion.div>
 
-            {/* Main Content - Left on mobile, centered on tablets+ */}
+            {/* Main Content */}
             <div className="relative z-10 max-w-7xl mx-auto px-4 md:px-8">
-                <div className="flex flex-col items-start md:items-center text-left md:text-center gap-0">
+                <div className="flex flex-col items-start md:items-center text-left md:text-center">
 
-                    {/* Line 1: A GENIUS [IMG] */}
-                    <div className="relative flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-0 md:-mb-12 lg:-mb-16">
-                        <span className="hero-char text-white z-50 tracking-tighter uppercase relative mr-4 md:mr-8" style={charStyle}>A</span>
-                        <div className="flex">{renderWord("GENIUS", "text-white", "z-50")}</div>
+                    {/* Line 1: A [POLAROID] GENIUS WEB3 */}
+                    <div className="flex flex-wrap md:flex-nowrap items-center gap-6 md:gap-12 lg:gap-16 xl:gap-24">
+                        <div className="flex shrink-0">{renderWord("A")}</div>
                         <PolaroidSlider
                             images={slider1Images}
                             rotation="-rotate-6"
-                            className="ml-2 md:ml-8 mt-2 md:mt-0"
+                            className="shrink-0"
                             hasGlow={true}
                             delay={0}
                         />
+                        <div className="flex shrink-0">{renderWord("GENIUS")}</div>
+                        <div className="flex shrink-0">{renderWord("WEB3")}</div>
                     </div>
 
-                    {/* Line 2: WEB3 [IMG] [ROTATING] */}
-                    <div className="relative flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center mb-0 md:-mb-12 lg:-mb-16">
-                        <div className="flex">{renderWord("WEB3", "text-white", "z-50")}</div>
-                        <PolaroidSlider
-                            images={slider2Images}
-                            rotation="rotate-8"
-                            className="ml-2 md:ml-8 mt-2 md:mt-0"
-                            innerRotation="rotate-[-20deg]"
-                            delay={1300}
-                        />
-                        <div className="flex mt-2 md:mt-0 md:ml-4">
+                    {/* Line 2: BUSINESS/COMMUNITY/MARKETING [POLAROID] */}
+                    <div className="flex flex-wrap md:flex-nowrap items-center gap-6 md:gap-12 lg:gap-16 xl:gap-24">
+                        <div className="flex shrink-0">
                             {words[wordIndex].split('').map((char, i) => (
                                 <span
                                     key={i}
-                                    className="hero-char rotating-char text-[#F5C857] z-50 tracking-tighter uppercase relative -mr-1 md:-mr-2"
+                                    className="hero-char rotating-char text-[#F5C857] tracking-tighter uppercase relative -mr-1 md:-mr-2 lg:-mr-3 xl:-mr-4"
                                     style={charStyle}
                                 >
                                     {char}
                                 </span>
                             ))}
                         </div>
+                        <PolaroidSlider
+                            images={slider2Images}
+                            rotation="rotate-8"
+                            className="shrink-0"
+                            innerRotation="rotate-[-20deg]"
+                            delay={1300}
+                        />
                     </div>
 
-                    {/* Line 3: DEVELOPER [IMG] */}
-                    <div className="relative flex flex-wrap md:flex-nowrap items-center justify-start md:justify-center">
-                        <div className="flex">{renderWord("DEVELOPER", "text-white", "z-50")}</div>
-                        <PolaroidSlider
-                            images={slider3Images}
-                            rotation="rotate-12"
-                            className="ml-2 md:ml-8 mt-2 md:mt-0"
-                            delay={2600}
-                        />
+                    {/* Line 3: DEVELOPER */}
+                    <div className="flex items-center">
+                        <div className="flex">{renderWord("DEVELOPER")}</div>
                     </div>
                 </div>
             </div>
 
-            {/* Mobile & Tablet Hero Image - Shows on mobile and ALL tablets */}
-            <div className="mobile-hero-img lg:hidden w-full flex justify-center mt-12 px-4 relative z-20">
+            {/* Mobile & Tablet Hero Image */}
+            <div className="mobile-hero-img block lg:hidden w-full flex justify-center mt-12 px-4 relative z-20">
                 <div className="relative w-full max-w-md">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-yellow-400/10 via-amber-300/5 to-transparent blur-2xl pointer-events-none -z-10"></div>
                     <img
