@@ -68,9 +68,9 @@ const generatePositions = (images: string[], screenWidth: number): { items: Posi
             // Scale the specific image size and margin
             const baseSize = Math.random() * (MAX_IMAGE_SIZE - MIN_IMAGE_SIZE) + MIN_IMAGE_SIZE;
             const size = baseSize * scaleFactor;
-            
+
             const radius = size / 2;
-            
+
             const baseMargin = Math.random() * (MARGIN_MAX - MARGIN_MIN) + MARGIN_MIN;
             const margin = baseMargin * scaleFactor;
 
@@ -150,12 +150,12 @@ const generatePositions = (images: string[], screenWidth: number): { items: Posi
 
 export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
-    
+
     // State to track screen size category (triggering re-calc only on breakpoint change)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     useEffect(() => {
-        let timeoutId: NodeJS.Timeout;
+        let timeoutId: ReturnType<typeof setTimeout>;
         const handleResize = () => {
             clearTimeout(timeoutId);
             // Debounce resize to avoid constant recalculation
@@ -172,7 +172,7 @@ export default function Hero() {
 
     // Generate positions when screenWidth changes significantly
     const rawImages = useMemo(() => [
-        heroImage1, heroImage2, heroImage3, heroImage4, heroImage5, 
+        heroImage1, heroImage2, heroImage3, heroImage4, heroImage5,
         heroImage6, heroImage7, heroImage8, heroImage9, heroImage10
     ], []);
 
@@ -180,7 +180,7 @@ export default function Hero() {
     const allImages = useMemo(() => [...rawImages, ...rawImages], [rawImages]);
 
     const { items: floatingImages, width: worldWidth, height: worldHeight } = useMemo(
-        () => generatePositions(allImages, screenWidth), 
+        () => generatePositions(allImages, screenWidth),
         [allImages, screenWidth]
     );
 
@@ -203,8 +203,8 @@ export default function Hero() {
             const maxTranslateX = Math.max(0, (worldWidth - innerWidth) / 2);
             const maxTranslateY = Math.max(0, (worldHeight - innerHeight) / 2);
 
-            const mouseXNormalized = (e.clientX / innerWidth - 0.5) * 2; 
-            const mouseYNormalized = (e.clientY / innerHeight - 0.5) * 2; 
+            const mouseXNormalized = (e.clientX / innerWidth - 0.5) * 2;
+            const mouseYNormalized = (e.clientY / innerHeight - 0.5) * 2;
 
             mouseX.set(-mouseXNormalized * maxTranslateX);
             mouseY.set(-mouseYNormalized * maxTranslateY);
