@@ -4,29 +4,39 @@ import { motion } from 'framer-motion';
 const services = [
     {
         number: "01",
-        title: "Web3 GTM Strategy",
-        description: "Design product-market-fit playbooks and on-chain incentive flows that drive measurable community growth."
+        title: "Growth & Product Marketing",
+        description: "Design data-driven GTM strategies and on-chain incentive models that accelerate user acquisition and optimize retention loops."
     },
     {
         number: "02",
-        title: "Partnerships & BD",
-        description: "Secure integrations and channel partnerships. Negotiate launch terms and co-marketing initiatives."
+        title: "Content Strategy & Writing",
+        description: "Craft clear, compelling narratives and technical documentation that demystify complex protocols and establish category leadership."
     },
     {
         number: "03",
-        title: "Community Growth",
-        description: "Design token-gated experiences and reward programs that increase engagement and retention."
+        title: "Social Media Growth",
+        description: "Execute high-velocity content campaigns on X and Farcaster to expand reach, drive engagement, and dominate share of voice."
     },
     {
         number: "04",
-        title: "Token Economics",
-        description: "Structure sustainable tokenomics and liquidity programs aligned with long-term value creation."
+        title: "Community Development",
+        description: "Architect vibrant, self-sustaining communities through ambassador programs, governance education, and grassroots activation."
     },
     {
         number: "05",
-        title: "Content Marketing",
-        description: "Create compelling narratives and thought leadership content that positions your protocol as an industry leader."
-    }
+        title: "Business Development",
+        description: "Secure high-value commercial partnerships and infrastructure integrations that expand ecosystem utility and market presence."
+    },
+    {
+        number: "06",
+        title: "Event Management",
+        description: "Curate immersive hackathons, side events, and developer workshops that foster deep connection and real-world collaboration."
+    },
+    {
+        number: "07",
+        title: "Partnership & Collab Management",
+        description: "Nurture and scale strategic relationships post-deal, ensuring long-term alignment, co-marketing success, and ecosystem health."
+    },
 ];
 
 export default function Services() {
