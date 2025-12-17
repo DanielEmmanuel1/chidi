@@ -287,9 +287,14 @@ export default function Hero() {
                 className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 text-left pointer-events-none"
             >
                 <h1 className="hero-title mix-blend-difference">
-                    <span className="block text-white font-display text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] font-bold tracking-tighter leading-[0.85]">
-                        0xCHIDI
-                    </span>
+                    <div className="flex flex-col leading-[0.85]">
+                        <span className="block text-white font-display text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] font-bold tracking-tighter">
+                            Chidi
+                        </span>
+                        <span className="block text-white font-serif italic text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] tracking-tighter ml-8 md:ml-24 lg:ml-32">
+                            Ugwu
+                        </span>
+                    </div>
                 </h1>
             </motion.div>
 
