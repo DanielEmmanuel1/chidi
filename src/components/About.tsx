@@ -76,12 +76,14 @@ export default function About() {
                             <span className="text-sm uppercase tracking-[0.2em] text-gold font-display mb-6 block">
                                 About Me
                             </span>
-                            <h2 className="font-serif text-heading-xl md:text-display-md text-white mb-8">
-                                From BD to <span className="italic text-gold">Business Development</span>
-                                <span className="block text-body-lg text-white/60 mt-4 font-sans">
-                                    (The only BD I do is Business Development—building partnerships, not paternity tests)
-                                </span>
-                            </h2>
+                            <div className="font-serif text-4xl sm:text-5xl lg:text-4xl xl:text-6xl leading-tight text-white mb-8">
+                                <span className="block whitespace-nowrap">Growth Marketing</span>
+                                <span className="block whitespace-nowrap text-white/50">Business Development</span>
+                                <span className="block whitespace-nowrap">Community Building</span>
+                            </div>
+                            <p className="text-gold font-medium text-xl mb-8 pl-4 border-l-2 border-gold">
+                                Growth Professional. Bridge Builder. Adoption Driver.
+                            </p>
                         </div>
 
                         {/* Mobile Image Position */}
@@ -97,9 +99,6 @@ export default function About() {
                         </div>
 
                         <div className="about-content space-y-6 text-body-md text-white/70 leading-relaxed">
-                            <p className="text-white font-medium text-lg">
-                                Growth Professional. Bridge Builder. Adoption Driver.
-                            </p>
                             <p>
                                 I am a Growth Professional with over five years of experience driving adoption for Web3 and FinTech companies. I specialize in turning technical potential into real market traction, helping blockchains and startup founders bridge the gap between building great products and getting users to actually care and adopt.
                             </p>
