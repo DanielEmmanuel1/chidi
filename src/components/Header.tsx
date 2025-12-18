@@ -16,7 +16,8 @@ export default function Header() {
         { name: 'About', href: '#about', image: aboutImage },
         { name: 'Services', href: '#services', image: servicesImage },
         { name: 'Work', href: '#work', image: workImage },
-        { name: 'Team', href: '#team1', image: heroImage },
+        { name: 'Experience', href: '#experience', image: heroImage },
+        { name: 'Blog', href: 'https://substack.com/@chidiugwu?r=467jfm&utm_medium=io', image: contactImage, external: true },
         { name: 'Contact', href: '#contact', image: contactImage }
     ];
 
@@ -52,12 +53,16 @@ export default function Header() {
         }
     }, [menuOpen]);
 
-    const handleMenuClick = (href: string) => {
+    const handleMenuClick = (href: string, external?: boolean) => {
         setMenuOpen(false);
-        setTimeout(() => {
-            const element = document.querySelector(href);
-            element?.scrollIntoView({ behavior: 'smooth' });
-        }, 300);
+        if (external) {
+            window.open(href, '_blank', 'noopener,noreferrer');
+        } else {
+            setTimeout(() => {
+                const element = document.querySelector(href);
+                element?.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
     };
 
     const currentImage = hoveredItem
@@ -181,7 +186,7 @@ export default function Header() {
                                             onMouseLeave={() => setHoveredItem(null)}
                                         >
                                             <button
-                                                onClick={() => handleMenuClick(item.href)}
+                                                onClick={() => handleMenuClick(item.href, (item as any).external)}
                                                 className={`text-4xl md:text-5xl lg:text-6xl font-light text-left transition-all duration-300 ${hoveredItem === item.name ? 'text-gold' : 'text-white'
                                                     }`}
                                             >
