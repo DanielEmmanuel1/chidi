@@ -81,8 +81,8 @@ export default function Header() {
             {/* Header - Hidden when menu is open */}
             <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${menuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'} bg-near-black/80 backdrop-blur-xl border-b ${scrolled ? 'border-white/20' : 'border-white/5'} py-6`}>
                 <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-                    <a href="/" className="text-2xl font-serif font-bold text-white hover:text-gold transition-colors duration-300">
-                        0xChidi
+                    <a href="/" className="text-2xl font-sans font-semibold text-white hover:text-gold transition-colors duration-300">
+                        Chidi <br /> <span className="text-gold ml-8">Ugwu</span>
                     </a>
                     <button onClick={() => setMenuOpen(true)} className="flex flex-col items-center justify-center gap-1.5 group" aria-label="Open menu">
                         <span className="text-xs uppercase tracking-wider text-white/70 group-hover:text-gold transition-colors mb-1 font-display">
