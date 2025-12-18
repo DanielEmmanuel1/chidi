@@ -35,7 +35,7 @@ export default function Preloader() {
         textCtx.textBaseline = 'middle';
         // @ts-ignore - letterSpacing is supported in modern browsers
         textCtx.letterSpacing = '-0.02em';
-        textCtx.fillText('0xChidi', textCanvas.width / 2, textCanvas.height / 2);
+        textCtx.fillText('Chidi Ugwu', textCanvas.width / 2, textCanvas.height / 2);
 
         // Create texture from text canvas
         const textTexture = new THREE.CanvasTexture(textCanvas);
@@ -202,28 +202,22 @@ export default function Preloader() {
             } else {
                 // Wait a bit to ensure liquid is fully settled/filled before transitioning
                 setTimeout(() => {
-                    const tl = gsap.timeline();
-
-                    // Ensure clicks pass through during fade out
+                    // Ensure clicks pass through during slide out
                     if (preloaderRef.current) {
                         preloaderRef.current.style.pointerEvents = 'none';
                     }
 
-                    tl.to('.preloader-text', {
-                        scale: 8,
+                    // Slide the entire preloader up smoothly
+                    gsap.to(preloaderRef.current, {
+                        y: '-100%',
                         duration: 1.2,
-                        ease: 'power2.inOut',
-                    });
-                    tl.to(preloaderRef.current, {
-                        opacity: 0,
-                        duration: 0.8,
                         ease: 'power2.inOut',
                         onComplete: () => {
                             if (preloaderRef.current) {
                                 preloaderRef.current.style.display = 'none';
                             }
                         },
-                    }, '-=0.5');
+                    });
                 }, 500);
             }
         };
@@ -256,7 +250,7 @@ export default function Preloader() {
                 }}
             >
                 {/* Invisible text for sizing */}
-                <span className="opacity-0 select-none">0xChidi</span>
+                <span className="opacity-0 select-none">Chidi Ugwu</span>
 
                 {/* Three.js liquid canvas (renders BOTH outline and liquid) */}
                 <canvas
