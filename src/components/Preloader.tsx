@@ -16,9 +16,13 @@ export default function Preloader() {
         const width = rect.width;
         const height = rect.height;
 
-        // Get exact font size from computed styles for perfect match
-        const computedStyle = window.getComputedStyle(container);
+        // Get the first span to determine font size
+        const firstSpan = container.querySelector('span:first-of-type');
+        if (!firstSpan) return;
+
+        const computedStyle = window.getComputedStyle(firstSpan);
         const fontSizePx = parseFloat(computedStyle.fontSize);
+        const lineHeight = 0.85; // Match the leading-[0.85] from CSS
 
         // Create high-resolution text mask canvas - EXACT size match
         const textCanvas = document.createElement('canvas');
@@ -31,11 +35,22 @@ export default function Preloader() {
         textCtx.clearRect(0, 0, textCanvas.width, textCanvas.height);
         textCtx.fillStyle = 'white';
         textCtx.font = `bold ${fontSizePx * scale}px Arial Black, sans-serif`;
-        textCtx.textAlign = 'center';
-        textCtx.textBaseline = 'middle';
-        // @ts-ignore - letterSpacing is supported in modern browsers
-        textCtx.letterSpacing = '-0.02em';
-        textCtx.fillText('Chidi Ugwu', textCanvas.width / 2, textCanvas.height / 2);
+        textCtx.textAlign = 'left';
+        textCtx.textBaseline = 'top';
+
+        // Draw "Chidi" on first line
+        textCtx.fillText('Chidi', 0, 0);
+
+        // Calculate second line position
+        const secondLineY = fontSizePx * scale * lineHeight;
+
+        // Get the second span's margin-left
+        const secondSpan = container.querySelector('span:nth-of-type(2)');
+        const secondSpanStyle = secondSpan ? window.getComputedStyle(secondSpan) : null;
+        const marginLeft = secondSpanStyle ? parseFloat(secondSpanStyle.marginLeft) * scale : 0;
+
+        // Draw "Ugwu" on second line with margin
+        textCtx.fillText('Ugwu', marginLeft, secondLineY);
 
         // Create texture from text canvas
         const textTexture = new THREE.CanvasTexture(textCanvas);
@@ -240,17 +255,21 @@ export default function Preloader() {
         >
             <div
                 ref={textContainerRef}
-                className="preloader-text relative flex items-center justify-center"
+                className="preloader-text relative"
                 style={{
-                    fontSize: 'clamp(80px, 15vw, 200px)',
                     width: 'fit-content',
-                    height: '1em',
                     fontFamily: '"Arial Black", sans-serif',
-                    letterSpacing: '-0.02em'
                 }}
             >
                 {/* Invisible text for sizing */}
-                <span className="opacity-0 select-none">Chidi Ugwu</span>
+                <div className="flex flex-col leading-[0.85] opacity-0 select-none">
+                    <span className="block text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] font-bold tracking-tighter">
+                        Chidi
+                    </span>
+                    <span className="block text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] font-bold tracking-tighter ml-8 md:ml-24 lg:ml-32">
+                        Ugwu
+                    </span>
+                </div>
 
                 {/* Three.js liquid canvas (renders BOTH outline and liquid) */}
                 <canvas
