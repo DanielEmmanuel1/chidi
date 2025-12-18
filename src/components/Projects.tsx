@@ -10,40 +10,43 @@ gsap.registerPlugin(ScrollTrigger);
 const caseStudies = [
     {
         id: 1,
-        tag: "Featured",
-        title: "Avalanche Team1 Contributions",
-        description: "Active contributor to the Avalanche ecosystem, supporting builders through developer outreach, technical content, and community events that accelerate adoption.",
+        tag: "Ecosystem Growth",
+        tags: ["Ecosystem Growth", "Content Writer"],
+        title: "Avalanche Team1",
+        description: "Ecosystem Contributor | Content Writer",
+        subtitle: "Played an active role in growing the Avalanche ecosystem by supporting builders through developer outreach, technical education, and community led initiatives.",
         image: projectImage1,
         achievements: [
-            "Led 10+ developer workshops on subnet architecture",
-            "Authored quarterly \"State of Avalanche\" reports",
-            "Mentored 3 winning teams at Avalanche Summit"
+            "Hosted 10+ hands on onboarding events that guided new developers and builders into the Avalanche ecosystem and accelerated growth",
+            "Wrote and published articles on Avalanche, breaking down ecosystem growth, trends, and key updates"
         ],
         link: "#"
     },
     {
         id: 2,
-        tag: "Partnerships",
-        title: "DeFi Protocol Strategic Partnership",
-        description: "Facilitated key partnerships between emerging DeFi protocols and established liquidity providers, resulting in $50M+ TVL growth.",
+        tag: "Social Media",
+        tags: ["Social Media", "Content Writer"],
+        title: "ZNS Connect",
+        description: "Social Media Manager | Community Developer | Content Writer",
+        subtitle: "Owned ZNS Connect's online presence, turning product updates into content people actually engage with.",
         image: projectImage2,
         achievements: [
-            "Negotiated partnerships with 5 major liquidity providers",
-            "Structured co-marketing campaigns reaching 200K+ users",
-            "Coordinated cross-chain integration strategy"
+            "Built and moderated community channels, driving daily conversations and user feedback loops",
+            "Created high signal content across X, LinkedIn, Discord, and Telegram that boosted reach and retention"
         ],
         link: "#"
     },
     {
         id: 3,
-        tag: "Community Growth",
-        title: "NFT Community Launch & Scale",
-        description: "Led community growth strategy for NFT project from 0 to 50K+ members, implementing token-gated experiences and engagement programs.",
+        tag: "Business Development",
+        tags: ["Business Development", "Partnership Management"],
+        title: "SeaFi AI",
+        description: "Business Development Manager | Partnership Manager",
+        subtitle: "Led outbound and inbound partnership efforts with Web3 and AI aligned products.",
         image: projectImage3,
         achievements: [
-            "Grew Discord community from 0 to 50K members in 6 months",
-            "Designed and launched token-gated rewards program",
-            "Achieved 85% community retention rate"
+            "Sourced and closed strategic collaborations that expanded distribution and revenue opportunities",
+            "Managed partner relationships end to end, from first convo to launch and post launch growth"
         ],
         link: "#"
     }
@@ -150,14 +153,21 @@ export default function Projects() {
                                 {/* Content */}
                                 <div className="order-1 lg:order-2 space-y-8">
                                     <div>
-                                        <span className="inline-block px-4 py-1 bg-gold/10 text-gold text-xs uppercase tracking-wider font-display rounded-full mb-6">
-                                            {activeStudy.tag}
-                                        </span>
-                                        <h3 className="text-heading-lg font-serif text-near-black mb-6">
+                                        <div className="flex flex-wrap gap-2 mb-6">
+                                            {(activeStudy.tags || [activeStudy.tag]).map((tag, idx) => (
+                                                <span key={idx} className="inline-block px-4 py-1 bg-gold/10 text-gold text-xs uppercase tracking-wider font-display rounded-full">
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                        <h3 className="text-heading-lg font-serif text-near-black mb-4">
                                             {activeStudy.title}
                                         </h3>
-                                        <p className="text-body-md text-charcoal/70 leading-relaxed mb-8">
+                                        <p className="text-body-md font-medium text-near-black mb-4">
                                             {activeStudy.description}
+                                        </p>
+                                        <p className="text-body-md text-charcoal/70 leading-relaxed mb-8">
+                                            {activeStudy.subtitle}
                                         </p>
                                     </div>
 
@@ -234,10 +244,14 @@ export default function Projects() {
                 <div className="lg:hidden space-y-12">
                     {caseStudies.map((study) => (
                         <div key={study.id} className="space-y-6">
-                            {/* Tag - Before Image */}
-                            <span className="inline-block px-4 py-1 bg-gold/10 text-gold text-xs uppercase tracking-wider font-display rounded-full">
-                                {study.tag}
-                            </span>
+                            {/* Tags - Before Image */}
+                            <div className="flex flex-wrap gap-2">
+                                {(study.tags || [study.tag]).map((tag, idx) => (
+                                    <span key={idx} className="inline-block px-4 py-1 bg-gold/10 text-gold text-xs uppercase tracking-wider font-display rounded-full">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
 
                             {/* Image */}
                             <div className="aspect-[4/3] rounded-2xl overflow-hidden relative group">
@@ -255,8 +269,11 @@ export default function Projects() {
                                     <h3 className="text-heading-lg font-serif text-near-black mb-4">
                                         {study.title}
                                     </h3>
-                                    <p className="text-body-md text-charcoal/70 leading-relaxed">
+                                    <p className="text-body-md font-medium text-near-black mb-3">
                                         {study.description}
+                                    </p>
+                                    <p className="text-body-md text-charcoal/70 leading-relaxed">
+                                        {study.subtitle}
                                     </p>
                                 </div>
 
