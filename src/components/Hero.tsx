@@ -37,14 +37,14 @@ interface PositionedImage extends HeroImageData {
 // --- ALGORITHM: RESPONSIVE PACKING ---
 const generatePositions = (images: string[], screenWidth: number): { items: PositionedImage[], width: number, height: number } => {
     // 1. DETERMINE SCALE FACTOR
-    // Scale everything down based on screen width
     let scaleFactor = 1.0;
-    if (screenWidth < 640) scaleFactor = 0.5;       // Mobile: 50% size
-    else if (screenWidth < 1024) scaleFactor = 0.7; // Tablet: 70% size
-    else if (screenWidth < 1440) scaleFactor = 0.9; // Laptop: 90% size
+    if (screenWidth < 640) scaleFactor = 0.5;
+    else if (screenWidth < 1024) scaleFactor = 0.7;
+    else if (screenWidth < 1440) scaleFactor = 0.9;
 
-    // Initial World Size (Scaled)
-    let currentWorldWidth = 3500 * scaleFactor;
+    // Initial World Size
+    // We start wide to encourage horizontal spread
+    let currentWorldWidth = 5500 * scaleFactor;
     let currentWorldHeight = 3500 * scaleFactor;
 
     const data = images.map((img, index) => ({ id: index, img }));
@@ -65,16 +65,9 @@ const generatePositions = (images: string[], screenWidth: number): { items: Posi
             let placed = false;
             let placementAttempts = 0;
 
-            // Scale the specific image size and margin
-            const baseSize = Math.random() * (MAX_IMAGE_SIZE - MIN_IMAGE_SIZE) + MIN_IMAGE_SIZE;
-            const size = baseSize * scaleFactor;
-
+            const size = (Math.random() * (MAX_IMAGE_SIZE - MIN_IMAGE_SIZE) + MIN_IMAGE_SIZE) * scaleFactor;
             const radius = size / 2;
-
-            const baseMargin = Math.random() * (MARGIN_MAX - MARGIN_MIN) + MARGIN_MIN;
-            const margin = baseMargin * scaleFactor;
-
-            // Scale padding
+            const margin = (Math.random() * (MARGIN_MAX - MARGIN_MIN) + MARGIN_MIN) * scaleFactor;
             const padding = CANVAS_PADDING * scaleFactor;
 
             while (!placed && placementAttempts < 800) {
@@ -115,13 +108,13 @@ const generatePositions = (images: string[], screenWidth: number): { items: Posi
         if (allPlaced) {
             success = true;
         } else {
-            // Expand
-            currentWorldWidth += (1000 * scaleFactor);
-            currentWorldHeight += (1000 * scaleFactor);
+            // Expand mostly horizontally to ensure we fit all images
+            currentWorldWidth += (1200 * scaleFactor);
+            currentWorldHeight += (800 * scaleFactor);
         }
     }
 
-    // Phase 2: Shrink-Wrap
+    // Phase 2: Shrink-Wrap Calculation
     if (resultingImages.length === 0) return { items: [], width: 0, height: 0 };
 
     const minX = Math.min(...resultingImages.map(m => m.x - m.size / 2));
@@ -133,9 +126,12 @@ const generatePositions = (images: string[], screenWidth: number): { items: Posi
     const contentHeight = maxY - minY;
 
     const padding = CANVAS_PADDING * scaleFactor;
-    const finalWorldWidth = contentWidth + padding * 2;
-    const finalWorldHeight = contentHeight + padding * 2;
+    
+    // Strict Shrink Wrap with forced minimum width for panning effect
+    const finalWorldWidth = Math.max(contentWidth + padding * 2, screenWidth * 1.8); // Reduced multiplier slightly for 30 images
+    const finalWorldHeight = Math.max(contentHeight + padding * 2, window.innerHeight * 1.2);
 
+    // Re-center
     const offsetX = (minX + maxX) / 2;
     const offsetY = (minY + maxY) / 2;
 
@@ -150,15 +146,12 @@ const generatePositions = (images: string[], screenWidth: number): { items: Posi
 
 export default function Hero() {
     const heroRef = useRef<HTMLDivElement>(null);
-
-    // State to track screen size category (triggering re-calc only on breakpoint change)
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         let timeoutId: ReturnType<typeof setTimeout>;
         const handleResize = () => {
             clearTimeout(timeoutId);
-            // Debounce resize to avoid constant recalculation
             timeoutId = setTimeout(() => {
                 setScreenWidth(window.innerWidth);
             }, 500);
@@ -170,17 +163,16 @@ export default function Hero() {
         };
     }, []);
 
-    // Generate positions when screenWidth changes significantly
     const rawImages = useMemo(() => [
-        heroImage1, heroImage2, heroImage3, heroImage4, heroImage5,
+        heroImage1, heroImage2, heroImage3, heroImage4, heroImage5, 
         heroImage6, heroImage7, heroImage8, heroImage9, heroImage10
     ], []);
 
-    // Use duplicated images for density
-    const allImages = useMemo(() => [...rawImages, ...rawImages], [rawImages]);
+    // REDUCED TO 3 SETS (30 Images Total) - Less crowded
+    const allImages = useMemo(() => [...rawImages, ...rawImages, ...rawImages], [rawImages]);
 
     const { items: floatingImages, width: worldWidth, height: worldHeight } = useMemo(
-        () => generatePositions(allImages, screenWidth),
+        () => generatePositions(allImages, screenWidth), 
         [allImages, screenWidth]
     );
 
@@ -200,11 +192,12 @@ export default function Hero() {
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
             const { innerWidth, innerHeight } = window;
+            
             const maxTranslateX = Math.max(0, (worldWidth - innerWidth) / 2);
             const maxTranslateY = Math.max(0, (worldHeight - innerHeight) / 2);
 
-            const mouseXNormalized = (e.clientX / innerWidth - 0.5) * 2;
-            const mouseYNormalized = (e.clientY / innerHeight - 0.5) * 2;
+            const mouseXNormalized = (e.clientX / innerWidth - 0.5) * 2; 
+            const mouseYNormalized = (e.clientY / innerHeight - 0.5) * 2; 
 
             mouseX.set(-mouseXNormalized * maxTranslateX);
             mouseY.set(-mouseYNormalized * maxTranslateY);
@@ -245,13 +238,12 @@ export default function Hero() {
             ref={heroRef}
             className="relative min-h-screen flex items-center justify-center bg-near-black overflow-hidden bg-black"
         >
-            {/* Moving World Container */}
             <motion.div
                 className="absolute top-1/2 left-1/2 z-5"
                 style={{
                     x: smoothMouseX,
                     y: smoothMouseY,
-                    width: 0,
+                    width: 0, 
                     height: 0,
                     willChange: 'transform'
                 }}
@@ -281,7 +273,6 @@ export default function Hero() {
                 ))}
             </motion.div>
 
-            {/* Static Title (Foreground) */}
             <motion.div
                 style={{ opacity }}
                 className="relative z-20 max-w-7xl mx-auto px-6 md:px-12 lg:px-20 text-left pointer-events-none"
@@ -291,14 +282,13 @@ export default function Hero() {
                         <span className="block text-white font-display text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] font-bold tracking-tighter">
                             Chidi
                         </span>
-                        <span className="block text-gold font-serif italic text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] tracking-tighter ml-8 md:ml-24 lg:ml-32">
+                        <span className="block text-gold font-serif italic text-8xl md:text-9xl lg:text-[12rem] xl:text-[14rem] xxl:text-[16rem] tracking-tighter ml-8 md:ml-24 lg:ml-32 text-[#D4AF37]">
                             Ugwu
                         </span>
                     </div>
                 </h1>
             </motion.div>
 
-            {/* Scroll Indicator */}
             <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-20">
                 <motion.div
                     animate={{ y: [0, 12, 0] }}
