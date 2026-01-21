@@ -6,7 +6,8 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Services from './components/Services';
 import Projects from './components/Projects';
-import Community from './components/Community';
+// import Community from './components/Community';
+import ProfessionalExperience from './components/ProfessionalExperience';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -17,7 +18,8 @@ function Home() {
       <About />
       <Services />
       <Projects />
-      <Community />
+      <ProfessionalExperience />
+      {/* <Community /> */}
       <Contact />
       <Footer />
     </Layout>
@@ -29,9 +31,9 @@ function App() {
     <Router>
       <Preloader />
       {/* <SmoothScroll> */}
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
       {/* </SmoothScroll> */}
     </Router>
   );

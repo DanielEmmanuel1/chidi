@@ -7,7 +7,7 @@ import ParallaxImage from './ParallaxImage';
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-    { value: 12, suffix: "+", label: "Baby mama's" },
+    { value: 12, suffix: "+", label: "Articles Written" },
     { value: 50, suffix: "+", label: "Partnerships" },
     { value: 150, suffix: "%", label: "Avg. Growth" },
     { value: 15, suffix: "+", label: "Events Hosted" }
@@ -76,12 +76,14 @@ export default function About() {
                             <span className="text-sm uppercase tracking-[0.2em] text-gold font-display mb-6 block">
                                 About Me
                             </span>
-                            <h2 className="font-serif text-heading-xl md:text-display-md text-white mb-8">
-                                From BD to <span className="italic text-gold">Business Development</span>
-                                <span className="block text-body-lg text-white/60 mt-4 font-sans">
-                                    (The only BD I do is Business Development—building partnerships, not paternity tests)
-                                </span>
-                            </h2>
+                            <div className="font-serif text-4xl sm:text-5xl lg:text-4xl xl:text-6xl leading-tight text-white mb-8">
+                                <span className="block whitespace-nowrap">Growth Marketing</span>
+                                <span className="block whitespace-nowrap text-white/50">Business Development</span>
+                                <span className="block whitespace-nowrap">Community Building</span>
+                            </div>
+                            <p className="text-gold font-medium text-xl mb-8 pl-4 border-l-2 border-gold">
+                                Growth Professional. Bridge Builder. Adoption Driver.
+                            </p>
                         </div>
 
                         {/* Mobile Image Position */}
@@ -98,10 +100,13 @@ export default function About() {
 
                         <div className="about-content space-y-6 text-body-md text-white/70 leading-relaxed">
                             <p>
-                                I help blockchain founders bridge the gap between technical innovation and market adoption. As an active member of <span className="text-white font-medium">Avalanche Team1</span>, I support builders with developer outreach, content, and events that accelerate ecosystem growth.
+                                I am a Growth Professional with over five years of experience driving adoption for Web3 and FinTech companies. I specialize in turning technical potential into real market traction, helping blockchains and startup founders bridge the gap between building great products and getting users to actually care and adopt.
                             </p>
                             <p>
-                                With a background spanning business development and Web3 marketing, I've helped launch tokens, broker strategic partnerships, and build thriving communities that drive real value.
+                                I bring a hybrid skill set across the full growth lifecycle, from Business Development and strategic partnerships to Product and Go to Market strategy. I design adoption playbooks, on-chain incentive models, and ecosystem integrations that unlock real usage, not just hype.
+                            </p>
+                            <p>
+                                My background is rooted in activation, storytelling, and community building. I run social media and community programs that retain users, shape strong narratives, and position protocols as category leaders. Whether scaling engagement by triple digits or leading complex GTM launches, my focus stays the same: sustainable growth that turns innovation into impact.
                             </p>
                         </div>
 

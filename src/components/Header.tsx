@@ -16,7 +16,8 @@ export default function Header() {
         { name: 'About', href: '#about', image: aboutImage },
         { name: 'Services', href: '#services', image: servicesImage },
         { name: 'Work', href: '#work', image: workImage },
-        { name: 'Team', href: '#team1', image: heroImage },
+        { name: 'Experience', href: '#experience', image: heroImage },
+        { name: 'Blog', href: 'https://substack.com/@chidiugwu?r=467jfm&utm_medium=io', image: contactImage, external: true },
         { name: 'Contact', href: '#contact', image: contactImage }
     ];
 
@@ -52,12 +53,16 @@ export default function Header() {
         }
     }, [menuOpen]);
 
-    const handleMenuClick = (href: string) => {
+    const handleMenuClick = (href: string, external?: boolean) => {
         setMenuOpen(false);
-        setTimeout(() => {
-            const element = document.querySelector(href);
-            element?.scrollIntoView({ behavior: 'smooth' });
-        }, 300);
+        if (external) {
+            window.open(href, '_blank', 'noopener,noreferrer');
+        } else {
+            setTimeout(() => {
+                const element = document.querySelector(href);
+                element?.scrollIntoView({ behavior: 'smooth' });
+            }, 300);
+        }
     };
 
     const currentImage = hoveredItem
@@ -76,8 +81,8 @@ export default function Header() {
             {/* Header - Hidden when menu is open */}
             <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${menuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'} bg-near-black/80 backdrop-blur-xl border-b ${scrolled ? 'border-white/20' : 'border-white/5'} py-6`}>
                 <div className="container mx-auto px-6 lg:px-12 flex justify-between items-center">
-                    <a href="/" className="text-2xl font-serif font-bold text-white hover:text-gold transition-colors duration-300">
-                        0xChidi
+                    <a href="/" className="text-2xl font-sans font-semibold text-white hover:text-gold transition-colors duration-300">
+                        Chidi <br /> <span className="text-gold ml-8">Ugwu</span>
                     </a>
                     <button onClick={() => setMenuOpen(true)} className="flex flex-col items-center justify-center gap-1.5 group" aria-label="Open menu">
                         <span className="text-xs uppercase tracking-wider text-white/70 group-hover:text-gold transition-colors mb-1 font-display">
@@ -181,7 +186,7 @@ export default function Header() {
                                             onMouseLeave={() => setHoveredItem(null)}
                                         >
                                             <button
-                                                onClick={() => handleMenuClick(item.href)}
+                                                onClick={() => handleMenuClick(item.href, (item as any).external)}
                                                 className={`text-4xl md:text-5xl lg:text-6xl font-light text-left transition-all duration-300 ${hoveredItem === item.name ? 'text-gold' : 'text-white'
                                                     }`}
                                             >
